@@ -7,111 +7,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
-  oauth_token_secret String?
-  oauth_token        String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String
-
-  @@index([userId])
-}
-
-model User {
-  id            String      @id @default(cuid())
-  name          String
-  email         String?     @unique
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime    @default(now()) @map(name: "created_at")
-  updatedAt     DateTime    @updatedAt @map(name: "updated_at")
-  posts         Post[]
-  saved         SavedPost[]
-  claps         Claps[]
-  responses     Response[]
-  followedBy    Follows[]   @relation("following")
-  following     Follows[]   @relation("follower")
-  accounts      Account[]
-  sessions      Session[]
-
-  @@map(name: "users")
-}
-
 model Post {
   id        String   @id @default(uuid())
+  userId    String
   title     String
   story     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  claps Claps[]
+  claps    Claps[]
   response Response[]
   savePost SavedPost[]
 }
 
 model Claps {
   id        String   @id @default(uuid())
+  userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
 
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String
-
   @@index([userId])
 }
 
 model Response {
-  id String @id @default(uuid())
-  body String?
-
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId String
-
+  id     String  @id @default(uuid())
   userId String
-  user User @relation(fields: [userId], references: [id],onDelete: Cascade)
+  body   String?
+
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model SavedPost {
-  id String @id @default(uuid())
+  id     String @id @default(uuid())
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   postId String
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
-// model Follows {
-//   follower
-// }
+model Follows {
+  userId      String
+  followerId  String
+  followingId String
+
+  @@id([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
+
