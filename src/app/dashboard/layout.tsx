@@ -1,13 +1,12 @@
 import Header from "@/components/Header";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-        {children}
-    </html>
-  );
-}
+export default function StoryLayout({
+    children,
+  }: {
+    children: React.ReactNode;
+  }) {
+    return <div>
+        <Header/>
+        {children}</div>;
+  }
+  
