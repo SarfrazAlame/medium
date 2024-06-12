@@ -1,7 +1,10 @@
 import React from "react";
 import { Input } from "./ui/input";
-import { Search } from "lucide-react";
+import { BellDot, BellDotIcon, BellElectric, Search } from "lucide-react";
 import { UserButton } from "@clerk/nextjs";
+import { PiBellThin } from "react-icons/pi";
+import { TfiWrite } from "react-icons/tfi";
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -18,7 +21,16 @@ const Header = () => {
           />
         </div>
 
-        <div>
+        <div></div>
+
+        <div className="flex items-center gap-8">
+          <Link href="/dashboard/new-story">
+            <div className="flex gap-2">
+              <TfiWrite size={20} className="cursor-pointer text-gray-400" />
+              <p className="text-sm text-slate-500">Write</p>
+            </div>
+          </Link>
+          <PiBellThin size={24} className="cursor-pointer" />
           <UserButton />
         </div>
       </div>
