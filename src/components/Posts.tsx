@@ -1,12 +1,10 @@
 import { PostWithAll } from "@/auth/types";
-import { User, clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
 import React from "react";
 import LowerSection from "./LowerSection";
-import { AspectRatio } from "./ui/aspect-ratio";
 
 const Posts = async ({ post }: { post: PostWithAll }) => {
-  const user = await clerkClient.users.getUser(post.userId);
+  const user:any = []
   return (
     <div>
       <div className="flex flex-col gap-y-4">

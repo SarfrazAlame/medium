@@ -12,6 +12,7 @@ import { z } from "zod";
 import axios from "axios";
 import { UploadButton } from "@/utils/uploadthing";
 import Image from "next/image";
+import { PublishStory } from "@/lib/action";
 
 const page = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const page = () => {
 
   const handleSubmit = async (values: z.infer<typeof CreatePost>) => {
     try {
-      await axios.post("/api/post", values);
+      await PublishStory(values);
       toast.success("post created");
       router.push("/");
     } catch (error) {

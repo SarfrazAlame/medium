@@ -1,7 +1,6 @@
 import Posts from "@/components/Posts";
 import prisma from "@/auth/prisma";
 import { PostWithAll } from "@/auth/types";
-import { clerkClient, currentUser } from "@clerk/nextjs/server";
 
 const page = async () => {
   const PostData = await prisma?.post.findMany({

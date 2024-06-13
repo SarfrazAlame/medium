@@ -1,11 +1,12 @@
-import { ReceiptPoundSterlingIcon, Save, Star, StarIcon } from "lucide-react";
+"use client";
+import { StarIcon } from "lucide-react";
 import React from "react";
 import Timestamps from "./Timestamps";
 import { PostWithAll } from "@/auth/types";
-import { PiHandsClappingThin, PiThreeD } from "react-icons/pi";
+import { PiHandsClappingThin } from "react-icons/pi";
 import { FaComment } from "react-icons/fa";
-import { CiSaveUp1, CiSaveUp2 } from "react-icons/ci";
-import { BsThreeDots } from "react-icons/bs";
+import { CiSaveUp2 } from "react-icons/ci";
+import ThreeDots from "./ThreeDots";
 
 const LowerSection = ({ post }: { post: PostWithAll }) => {
   return (
@@ -16,10 +17,10 @@ const LowerSection = ({ post }: { post: PostWithAll }) => {
           <Timestamps createdAt={post.createdAt} className="cursor-pointer" />
         </div>
 
-        <div>
+        <button>
           <PiHandsClappingThin className="cursor-pointer" />
           <p>{post.Claps?.length}</p>
-        </div>
+        </button>
 
         <div>
           <FaComment className="text-slate-500 cursor-pointer" />
@@ -29,10 +30,9 @@ const LowerSection = ({ post }: { post: PostWithAll }) => {
 
       <div className="flex gap-5">
         <CiSaveUp2 className="text-gray-600  cursor-pointer" />
-        <BsThreeDots className="text-gray-600 cursor-pointer" />
+        <ThreeDots />
       </div>
     </div>
   );
 };
-
 export default LowerSection;

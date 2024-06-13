@@ -7,15 +7,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model VerificationToken {
+  id         Int      @id @default(autoincrement())
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+  oauth_token_secret String?
+  oauth_token        String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+
+  @@index([userId])
+}
+
+model User {
+  id            String      @id @default(cuid())
+  name          String?
+  username      String?
+  email         String?     @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime    @default(now()) @map(name: "created_at")
+  updatedAt     DateTime    @updatedAt @map(name: "updated_at")
+  posts         Post[]
+  saved         SavedPost[]
+  claps         Claps[]
+  response      Response[]
+  followedBy    Follows[]   @relation("following")
+  following     Follows[]   @relation("follower")
+  accounts      Account[]
+  sessions      Session[]
+
+  @@map(name: "users")
+}
+
 model Post {
   id        String   @id @default(uuid())
-  userId    String
   title     String
   story     String
-  fileUrl  String?
+  fileUrl   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  userId   String
+  user     User        @relation(fields: [userId], references: [id])
   claps    Claps[]
   response Response[]
   savePost SavedPost[]
@@ -29,6 +91,7 @@ model Claps {
 
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
+  User   User   @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
@@ -43,6 +106,7 @@ model Response {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id])
 }
 
 model SavedPost {
@@ -51,17 +115,18 @@ model SavedPost {
 
   postId String
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  User   User   @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
 
 model Follows {
-  userId      String
+  follower    User   @relation("follower", fields: [followerId], references: [id])
   followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id])
   followingId String
 
   @@id([followerId, followingId])
   @@index([followerId])
   @@index([followingId])
 }
-

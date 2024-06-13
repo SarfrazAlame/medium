@@ -1,4 +1,3 @@
-import { CreatePost } from "@/auth/schema";
 import { auth } from "@clerk/nextjs/server";
 import prisma from "@/auth/prisma";
 import { NextResponse } from "next/server";

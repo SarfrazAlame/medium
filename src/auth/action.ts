@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 export default async function Postform(values: z.infer<typeof CreatePost>) {
-    const { userId } = getAuth()
     const validatedPath = CreatePost.safeParse(values)
     if (!validatedPath.success) {
         return {
