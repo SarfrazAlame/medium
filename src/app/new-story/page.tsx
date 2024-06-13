@@ -2,19 +2,20 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { CreatePost } from "@/auth/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
-
-const formSchema = z.object({
-  title: z.string().min(1).max(20),
-  story: z.string().max(250),
-});
+import axios from "axios";
 
 const page = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof CreatePost>>({
+    resolver: zodResolver(CreatePost),
     defaultValues: {
       title: "",
       story: "",
@@ -23,8 +24,15 @@ const page = () => {
 
   const { isValid, isSubmitting } = form.formState;
 
-  const handleSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const handleSubmit = async (values: z.infer<typeof CreatePost>) => {
+    try {
+      await axios.post("/api/post", values);
+      toast.success("post created");
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
   };
   return (
     <>
@@ -64,7 +72,7 @@ const page = () => {
             )}
           />
           <Button
-          type="submit"
+            type="submit"
             disabled={!isValid || isSubmitting}
             className="absolute right-1/3 border top-6 bg-green-800 rounded-full text-gray-50 text-[15px]"
           >
