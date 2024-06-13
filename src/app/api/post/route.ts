@@ -4,7 +4,7 @@ import prisma from "@/auth/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    const { title, story } = await req.json()
+    const { title, story, fileUrl } = await req.json()
 
     const { userId } = auth()
 
@@ -14,7 +14,8 @@ export async function POST(req: Request) {
                 data: {
                     userId,
                     title,
-                    story
+                    story,
+                    fileUrl
                 }
             })
             return NextResponse.json(post)

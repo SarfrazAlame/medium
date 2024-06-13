@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import axios from "axios";
 import { UploadButton } from "@/utils/uploadthing";
+import Image from "next/image";
 
 const page = () => {
   const router = useRouter();
@@ -20,14 +21,15 @@ const page = () => {
     defaultValues: {
       title: "",
       story: "",
-      imageUrl:undefined
+      fileUrl: undefined,
     },
   });
+
+  const fileUrl = form.watch("fileUrl");
 
   const { isValid, isSubmitting } = form.formState;
 
   const handleSubmit = async (values: z.infer<typeof CreatePost>) => {
-    console.log(values);
     try {
       await axios.post("/api/post", values);
       toast.success("post created");
@@ -74,26 +76,41 @@ const page = () => {
               </FormItem>
             )}
           />
-
-          <FormField
-            control={form.control}
-            name="story"
-            render={({ field }) => (
-              <FormItem className="flex w-full justify-center">
-                <FormControl>
-                  <UploadButton
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                      console.log("Files: ", res);
-                    }}
-                    onUploadError={(error: Error) => {
-                      toast.error('failed uploads')
-                    }}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+          {!!fileUrl ? (
+            <>
+              <div>
+                <Image
+                  src={fileUrl}
+                  width={340}
+                  height={140}
+                  alt=""
+                  className="rounded"
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <FormField
+                control={form.control}
+                name="story"
+                render={({ field, fieldState }) => (
+                  <FormItem className="flex w-full justify-center mt-12">
+                    <FormControl>
+                      <UploadButton
+                        endpoint="imageUploader"
+                        onClientUploadComplete={(res) => {
+                          form.setValue("fileUrl", res[0].url);
+                        }}
+                        onUploadError={(error: Error) => {
+                          toast.error("failed uploads");
+                        }}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
           <Button
             type="submit"
             disabled={!isValid || isSubmitting}
@@ -101,7 +118,6 @@ const page = () => {
           >
             Publish
           </Button>
-
         </form>
       </Form>
     </>

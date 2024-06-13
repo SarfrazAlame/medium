@@ -3,6 +3,7 @@ import { User, clerkClient } from "@clerk/nextjs/server";
 import Image from "next/image";
 import React from "react";
 import LowerSection from "./LowerSection";
+import { AspectRatio } from "./ui/aspect-ratio";
 
 const Posts = async ({ post }: { post: PostWithAll }) => {
   const user = await clerkClient.users.getUser(post.userId);
@@ -21,14 +22,24 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
           </div>
           <p className="-mt-1 text-sm tracking-wide">{user.fullName}</p>
         </div>
-        <div>
-          <div className="flex flex-col ">
+        <div className="flex gap-8 items-center">
+          <div className="flex flex-col">
             <p className="text-2xl font-bold text-gray-700">{post.title}</p>
             <p className="text-sm  text-zinc-600">{post.story}</p>
           </div>
+          <div>
+            {post?.fileUrl ? (
+              <Image
+                src={post.fileUrl || ""}
+                alt="image"
+                height="80"
+                width="80"
+              />
+            ) : null}
+          </div>
         </div>
         <div>
-          <LowerSection/>
+          <LowerSection post={post} />
         </div>
       </div>
     </div>
