@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import axios from "axios";
+import { UploadButton } from "@/utils/uploadthing";
 
 const page = () => {
   const router = useRouter();
@@ -19,12 +20,14 @@ const page = () => {
     defaultValues: {
       title: "",
       story: "",
+      imageUrl:undefined
     },
   });
 
   const { isValid, isSubmitting } = form.formState;
 
   const handleSubmit = async (values: z.infer<typeof CreatePost>) => {
+    console.log(values);
     try {
       await axios.post("/api/post", values);
       toast.success("post created");
@@ -39,7 +42,7 @@ const page = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="flex flex-col gap-4 my-12 "
+          className="flex flex-col gap-4 my-12 items-center"
         >
           <FormField
             control={form.control}
@@ -71,6 +74,26 @@ const page = () => {
               </FormItem>
             )}
           />
+
+          <FormField
+            control={form.control}
+            name="story"
+            render={({ field }) => (
+              <FormItem className="flex w-full justify-center">
+                <FormControl>
+                  <UploadButton
+                    endpoint="imageUploader"
+                    onClientUploadComplete={(res) => {
+                      console.log("Files: ", res);
+                    }}
+                    onUploadError={(error: Error) => {
+                      toast.error('failed uploads')
+                    }}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
           <Button
             type="submit"
             disabled={!isValid || isSubmitting}
@@ -78,6 +101,7 @@ const page = () => {
           >
             Publish
           </Button>
+
         </form>
       </Form>
     </>

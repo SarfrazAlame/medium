@@ -4,7 +4,7 @@ import { CiCirclePlus } from "react-icons/ci";
 
 const MiniHed = () => {
   return (
-    <div className="flex justify-center h-28 items-center">
+    <div className="h-28 flex items-center">
       <div className="flex gap-8 border-b pb-3">
         <CiCirclePlus className="cursor-pointer text-xl"/>
         <Link

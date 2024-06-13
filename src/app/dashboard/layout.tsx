@@ -9,11 +9,16 @@ export default function StoryLayout({
   return (
     <div>
       <Header />
-      <div className="w-2/3 h-full border-r">
-        <div className="flex flex-col w-2/3 justify-center items-center">
-          <MiniHed />
-          <div>{children}</div>
-        </div>
+      <div className="w-full h-full border-r flex">
+        <div className="flex w-2/3 flex-col justify-center items-center border-r">
+          <div>
+            <div>
+              <MiniHed />
+            </div>
+            <div>{children}</div>
+          </div>
+        </div>{" "}
+        <div>leftside</div>
       </div>
     </div>
   );

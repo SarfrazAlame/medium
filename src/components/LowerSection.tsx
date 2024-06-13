@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const LowerSection = () => {
-  return (
-    <div>LowerSection</div>
-  )
-}
+  return <div>LowerSection</div>;
+};
 
-export default LowerSection
+export default LowerSection;
