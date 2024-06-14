@@ -40,3 +40,21 @@ export default async function Postform(values: z.infer<typeof CreatePost>) {
         console.log('nhiohai')
     }
 } 
+
+export const likePost = async(postId:string)=>{
+    const userId = await getUserId()
+    try {
+        await prisma.claps.create({
+            data:{
+                postId,
+                userId
+            }
+        })
+        revalidatePath('/dashboard')
+    } catch (error) {
+        console.log(error)
+        return{
+            message:"can't like"
+        }
+    }
+}

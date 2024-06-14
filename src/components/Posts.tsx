@@ -2,10 +2,11 @@ import { PostWithAll } from "@/auth/types";
 import Image from "next/image";
 import React from "react";
 import LowerSection from "./LowerSection";
+import Link from "next/link";
 
 const Posts = async ({ post }: { post: PostWithAll }) => {
   return (
-    <div>
+    <Link href={`/story/${post.id}`}>
       <div className="flex flex-col gap-y-4">
         <div className="flex gap-3 items-center">
           <div>
@@ -39,7 +40,7 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
           <LowerSection post={post} />
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
