@@ -1,10 +1,15 @@
-import { redirect } from 'next/navigation'
-import React from 'react'
+import { getAuthOptions } from "@/auth/auth";
+import { redirect } from "next/navigation";
 
-const page = () => {
-  return (
-    redirect('/dashboard')
-  )
-}
+const page = async () => {
+  const session = await getAuthOptions();
+  const userId = session?.user.id;
 
-export default page
+  if (userId) {
+    return redirect("/dashboard");
+  } else {
+    return redirect("/login");
+  }
+};
+
+export default page;

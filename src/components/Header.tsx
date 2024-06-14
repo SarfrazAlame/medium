@@ -1,12 +1,14 @@
 import React from "react";
 import { Input } from "./ui/input";
-import { BellDot, BellDotIcon, BellElectric, Search } from "lucide-react";
-import { UserButton } from "@clerk/nextjs";
+import { Search } from "lucide-react";
 import { PiBellThin } from "react-icons/pi";
 import { TfiWrite } from "react-icons/tfi";
 import Link from "next/link";
+import { getAuthOptions } from "@/auth/auth";
+import Image from "next/image";
 
-const Header = () => {
+const Header = async () => {
+  const session = await getAuthOptions();
   return (
     <header>
       <div className="h-16 flex justify-between items-center px-10 border">
@@ -33,7 +35,13 @@ const Header = () => {
             </div>
           </Link>
           <PiBellThin size={24} className="cursor-pointer" />
-          <UserButton />
+          <Image
+            src={session?.user.image!}
+            alt=""
+            width={30}
+            height={30}
+            className="rounded-full"
+          />
         </div>
       </div>
     </header>

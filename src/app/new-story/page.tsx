@@ -9,10 +9,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import axios from "axios";
 import { UploadButton } from "@/utils/uploadthing";
 import Image from "next/image";
-import { PublishStory } from "@/lib/action";
+import Postform from "@/auth/action";
 
 const page = () => {
   const router = useRouter();
@@ -32,7 +31,7 @@ const page = () => {
 
   const handleSubmit = async (values: z.infer<typeof CreatePost>) => {
     try {
-      await PublishStory(values);
+      await Postform(values);
       toast.success("post created");
       router.push("/");
     } catch (error) {

@@ -1,8 +1,11 @@
 import { NextAuthOptions, getServerSession } from "next-auth";
 import GoogleProvider from 'next-auth/providers/google'
 import prisma from "./prisma";
+import { Adapter } from "next-auth/adapters";
+import { PrismaAdapter } from '@auth/prisma-adapter'
 
 export const authOption: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma) as Adapter,
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -17,42 +20,23 @@ export const authOption: NextAuthOptions = {
         strategy: "jwt"
     },
     callbacks: {
-        async session({ session, token }) {
-            if (token) {
-
-            }
+        async session({ session, user }) {
+            session.user.id = user.id
+            session.user.name = user.name
+            session.user.email = user.email
+            session.user.image = user.image
             return session
         }
     },
     // @ts-ignore
     async jwt({ token, user }) {
-        const prismaUser = await prisma.user.findFirst({
-            where: {
-                email: token.email
-            }
-        });
-        if (!prismaUser) {
+        if(user){
             token.id = user.id
-            return token
+            token.name = user.name
+            token.email=user.email
+            token.image = user.image
         }
-
-        if (!prismaUser.username) {
-            await prisma.user.update({
-                where: {
-                    id: prismaUser.id
-                },
-                data: {
-                    username: prismaUser.name?.split(" ").join("").toLowerCase()
-                }
-            })
-        }
-
-        return {
-            id: prismaUser.id,
-            name: prismaUser.name,
-            email: prismaUser.email,
-            picture: prismaUser.image
-        }
+        return token
     }
 }
 

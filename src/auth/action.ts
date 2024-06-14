@@ -4,8 +4,11 @@ import prisma from "./prisma"
 import { auth, currentUser, getAuth } from "@clerk/nextjs/server"
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { getUserId } from "./getUserId"
 
 export default async function Postform(values: z.infer<typeof CreatePost>) {
+
+    const userId = await getUserId()
     const validatedPath = CreatePost.safeParse(values)
     if (!validatedPath.success) {
         return {
