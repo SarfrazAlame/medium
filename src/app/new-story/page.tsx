@@ -30,6 +30,7 @@ const page = () => {
   const { isValid, isSubmitting } = form.formState;
 
   const handleSubmit = async (values: z.infer<typeof CreatePost>) => {
+    console.log(values);
     try {
       await Postform(values);
       toast.success("post created");

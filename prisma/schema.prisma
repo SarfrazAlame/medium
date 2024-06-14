@@ -77,7 +77,7 @@ model Post {
   updatedAt DateTime @updatedAt
 
   userId   String
-  user     User        @relation(fields: [userId], references: [id])
+  user     User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   claps    Claps[]
   response Response[]
   savePost SavedPost[]
@@ -91,7 +91,7 @@ model Claps {
 
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId String
-  User   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }
@@ -106,7 +106,7 @@ model Response {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model SavedPost {
@@ -115,7 +115,7 @@ model SavedPost {
 
   postId String
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  User   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
   @@index([userId])
 }

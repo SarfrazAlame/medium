@@ -1,15 +1,15 @@
+'use server'
 import { z } from "zod"
 import { CreatePost } from "./schema"
 import prisma from "./prisma"
-import { auth, currentUser, getAuth } from "@clerk/nextjs/server"
-import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 import { getUserId } from "./getUserId"
+import { revalidatePath } from "next/cache"
 
 export default async function Postform(values: z.infer<typeof CreatePost>) {
 
     const userId = await getUserId()
     const validatedPath = CreatePost.safeParse(values)
+
     if (!validatedPath.success) {
         return {
             errors: validatedPath.error,
@@ -17,7 +17,7 @@ export default async function Postform(values: z.infer<typeof CreatePost>) {
         }
     }
 
-    const { title, story } = validatedPath.data
+    const { title, story, fileUrl } = validatedPath.data
 
     if (userId) {
         try {
@@ -25,7 +25,8 @@ export default async function Postform(values: z.infer<typeof CreatePost>) {
                 data: {
                     userId,
                     title,
-                    story
+                    story,
+                    fileUrl
                 }
             })
         } catch (error) {
@@ -34,6 +35,7 @@ export default async function Postform(values: z.infer<typeof CreatePost>) {
                 message: "error is ", error
             }
         }
+        revalidatePath('/dashboard')
     } else {
         console.log('nhiohai')
     }

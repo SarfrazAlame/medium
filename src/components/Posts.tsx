@@ -4,21 +4,20 @@ import React from "react";
 import LowerSection from "./LowerSection";
 
 const Posts = async ({ post }: { post: PostWithAll }) => {
-  const user:any = []
   return (
     <div>
       <div className="flex flex-col gap-y-4">
         <div className="flex gap-3 items-center">
           <div>
             <Image
-              src={user.imageUrl}
+              src={post.user.image || ""}
               alt=""
               height={25}
               width={25}
               className="rounded-full"
             />
           </div>
-          <p className="-mt-1 text-sm tracking-wide">{user.fullName}</p>
+          <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
         </div>
         <div className="flex gap-8 items-center">
           <div className="flex flex-col">

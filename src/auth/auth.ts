@@ -20,25 +20,26 @@ export const authOption: NextAuthOptions = {
         strategy: "jwt"
     },
     callbacks: {
-        async session({ session, user }) {
-            session.user.id = user.id
-            session.user.name = user.name
-            session.user.email = user.email
-            session.user.image = user.image
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id
+                token.name = user.name
+                token.email = user.email
+                token.image = user.image
+            }
+            return token
+        },
+        async session({ session, token }) {
+            if (token) {
+                session.user.id = token.id
+                session.user.name = token.name
+                session.user.email = token.email
+                session.user.image = token.picture
+            }
             return session
         }
     },
-    // @ts-ignore
-    async jwt({ token, user }) {
-        if(user){
-            token.id = user.id
-            token.name = user.name
-            token.email=user.email
-            token.image = user.image
-        }
-        return token
-    }
-}
 
+}
 
 export const getAuthOptions = () => getServerSession(authOption)
