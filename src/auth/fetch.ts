@@ -1,4 +1,4 @@
-import { unstable_noStore as noStore  } from "next/cache";
+import { unstable_noStore as noStore } from "next/cache";
 import { getUserId } from "./getUserId"
 import prisma from "./prisma"
 
@@ -135,6 +135,21 @@ export const fetchFollower = async (IdOfUserWhoPost: string) => {
             }
         })
         return response
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+export const fetchSaved = async (postId: string) => {
+    const userId = await getUserId()
+    try {
+        const response = await prisma.savedPost.findUnique({
+            where: {
+                postId,
+                userId
+            }
+        })
     } catch (error) {
         console.log(error)
         return error

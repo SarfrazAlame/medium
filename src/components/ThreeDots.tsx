@@ -6,8 +6,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { PostWithAll } from "@/auth/types";
+import { FollowUser } from "@/auth/action";
+import Follows from "./Follows";
 
-const ThreeDots = () => {
+type User =
+  | {
+      id: string;
+      name: string | null | undefined;
+      email: string | null | undefined;
+      image: string | null | undefined;
+      username: string | null | undefined;
+    }
+  | undefined;
+
+const ThreeDots = ({ post, user, follower }: { post: PostWithAll; user: User, follower:string }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -15,10 +28,18 @@ const ThreeDots = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem>
-          <button className="text-sm text-red-500">Delete</button>
+          {post?.user.id === user?.id ? (
+            <>
+              <button className="text-sm text-red-500">Delete</button>
+            </>
+          ) : (
+            <>
+              <button className="text-sm text-red-500">Report Story</button>
+            </>
+          )}
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <button className="text-sm text-gray-600 ">Follow author</button>
+          <Follows post={post} follower={follower}/>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

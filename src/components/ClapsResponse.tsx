@@ -6,10 +6,28 @@ import { PiHandsClappingThin } from "react-icons/pi";
 import { FaComment } from "react-icons/fa";
 import { CiSaveUp2 } from "react-icons/ci";
 import ThreeDots from "./ThreeDots";
-import { likePost } from "@/auth/action";
+import { SavePost, likePost } from "@/auth/action";
 import { PostWithAll } from "@/auth/types";
 
-const ClapsResponse = ({ post }: { post: PostWithAll }) => {
+type User =
+  | {
+      id: string;
+      name: string | null | undefined;
+      email: string | null | undefined;
+      image: string | null | undefined;
+      username: string | null | undefined;
+    }
+  | undefined;
+
+const ClapsResponse = ({
+  post,
+  user,
+  follower,
+}: {
+  post: PostWithAll;
+  user: User;
+  follower: string;
+}) => {
   return (
     <div className="flex   justify-between">
       <div className="flex items-center gap-10">
@@ -33,8 +51,11 @@ const ClapsResponse = ({ post }: { post: PostWithAll }) => {
       </div>
 
       <div className="flex gap-5">
-        <CiSaveUp2 className="text-gray-600  cursor-pointer" />
-        <ThreeDots />
+        <CiSaveUp2
+          className="text-gray-600  cursor-pointer"
+          onClick={() => SavePost(post.id)}
+        />
+        <ThreeDots post={post} user={user} follower={follower} />
       </div>
     </div>
   );

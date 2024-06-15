@@ -67,7 +67,9 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 
       <div className="border-b border-t py-3">
         {/* @ts-ignore */}
-        <ShowIcons post={post} user={user} response={response} />
+        <ShowIcons post={post} user={user} response={response}
+          follower={follower}
+        />
       </div>
       <p className="text-xl text-slate-500 my-6">{post?.story}</p>
     </div>

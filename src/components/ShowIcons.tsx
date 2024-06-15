@@ -16,7 +16,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import Image from "next/image";
-import { Response, User } from "@prisma/client";
+import { Response } from "@prisma/client";
 import { Input } from "./ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,14 +27,26 @@ import { Button } from "./ui/button";
 import toast from "react-hot-toast";
 import { BsThreeDots } from "react-icons/bs";
 
+type User =
+  | {
+      id: string;
+      name: string | null | undefined;
+      email: string | null | undefined;
+      image: string | null | undefined;
+      username: string | null | undefined;
+    }
+  | undefined;
+
 const ShowIcons = ({
   post,
   user,
   response,
+  follower
 }: {
   post: PostWithAll;
   user: User;
   response: Response;
+  follower:string
 }) => {
   const form = useForm<z.infer<typeof CreateResponse>>({
     resolver: zodResolver(CreateResponse),
@@ -86,14 +98,14 @@ const ShowIcons = ({
                           <div className="flex gap-3 p-4">
                             <div>
                               <Image
-                                src={user.image!}
+                                src={user?.image!}
                                 alt=""
                                 width={30}
                                 height={30}
                                 className="rounded-full"
                               />
                             </div>
-                            <p className="text-gray-800">{user.name}</p>
+                            <p className="text-gray-800">{user?.name}</p>
                           </div>
                           <div>
                             <Input
@@ -142,7 +154,7 @@ const ShowIcons = ({
                                   <p className="text-gray-950">{res.body}</p>
                                 </div>
                                 <div className="mt-3 flex justify-between">
-                                  <PiHandsClappingThin className="cursor-pointer text-xl text-black"/>
+                                  <PiHandsClappingThin className="cursor-pointer text-xl text-black" />
                                   {/* <p>{res.claps.length}</p> */}
                                   <button className="text-black">Reply</button>
                                 </div>
@@ -162,7 +174,7 @@ const ShowIcons = ({
 
       <div className="flex gap-5">
         <CiSaveUp2 className="text-gray-600  cursor-pointer" />
-        <ThreeDots />
+        <ThreeDots post={post} user={user} follower={follower} />
       </div>
     </div>
   );

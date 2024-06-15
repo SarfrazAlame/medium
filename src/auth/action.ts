@@ -122,3 +122,22 @@ export const FollowUser = async (IdOfUserWhoPost: string) => {
         return error
     }
 }
+
+
+export const SavePost = async (postId: string) => {
+    const userId = await getUserId()
+    try {
+        await prisma.savedPost.create({
+            data: {
+                postId,
+                userId
+            }
+        })
+        revalidatePath('/dashboard')
+    } catch (error) {
+        console.log(error)
+        return {
+            message: error
+        }
+    }
+}
