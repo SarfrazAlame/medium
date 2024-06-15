@@ -4,7 +4,7 @@ import React from "react";
 import LowerSection from "./LowerSection";
 import Link from "next/link";
 import { getAuthOptions } from "@/auth/auth";
-import { fetchFollower, fetchSaved } from "@/auth/fetch";
+import { fetchFollower, fetchResponseByPostId, fetchSaved } from "@/auth/fetch";
 
 const Posts = async ({ post }: { post: PostWithAll }) => {
   const session = await getAuthOptions();
@@ -13,6 +13,7 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
   const savedpost: any = await fetchSaved(post.id);
 
   const stories = post.story.slice(0, 70);
+  const response = await fetchResponseByPostId(post.id);
 
   return (
     <div className="flex flex-col gap-y-4 border-b my-3 pb-3">
@@ -52,6 +53,8 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
           user={user}
           follower={follower}
           savedpost={savedpost}
+          // @ts-ignore
+          response={response}
         />
       </div>
     </div>

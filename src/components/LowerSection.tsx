@@ -1,3 +1,4 @@
+import { Response } from "@prisma/client";
 import ClapsResponse from "./ClapsResponse";
 import { PostWithAll } from "@/auth/types";
 
@@ -16,15 +17,17 @@ const LowerSection = async ({
   user,
   follower,
   savedpost,
+  response
 }: {
   post: PostWithAll;
   user: User;
   follower: string;
   savedpost: string;
+  response:Response
 }) => {
   return (
     <>
-      <ClapsResponse post={post} user={user} follower={follower} savedpost={savedpost}/>
+      <ClapsResponse post={post} user={user} follower={follower} savedpost={savedpost} response={response}/>
     </>
   );
 };

@@ -8,7 +8,9 @@ import { CiSaveUp2 } from "react-icons/ci";
 import ThreeDots from "./ThreeDots";
 import { SavePost, likePost } from "@/auth/action";
 import { PostWithAll } from "@/auth/types";
-import { BsFillSaveFill, BsSave } from "react-icons/bs";
+import { GoBookmark, GoBookmarkFill } from "react-icons/go";
+import Comment from "./Comment";
+import { Response } from "@prisma/client";
 
 type User =
   | {
@@ -25,11 +27,13 @@ const ClapsResponse = ({
   user,
   follower,
   savedpost,
+  response,
 }: {
   post: PostWithAll;
   user: User;
   follower: string;
   savedpost: string;
+  response: Response;
 }) => {
   return (
     <div className="flex   justify-between">
@@ -48,23 +52,22 @@ const ClapsResponse = ({
         </button>
 
         <div className="flex items-center gap-1">
-          <FaComment className="text-slate-500 cursor-pointer text-sm" />
-          <p className="text-gray-600 text-sm">{post.response?.length}</p>
+          <Comment post={post} user={user} response={response} />
         </div>
       </div>
 
       <div className="flex gap-5">
         {savedpost ? (
           <>
-            <BsFillSaveFill
-              className="text-gray-600  cursor-pointer"
+            <GoBookmarkFill
+              className="text-gray-600 text-xl  cursor-pointer"
               onClick={() => SavePost(post.id)}
             />
           </>
         ) : (
           <>
-            <BsSave
-              className="text-gray-600  cursor-pointer"
+            <GoBookmark
+              className="text-gray-600 text-xl  cursor-pointer"
               onClick={() => SavePost(post.id)}
             />
           </>
