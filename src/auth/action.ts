@@ -80,3 +80,12 @@ export const ResponsePost = async (postId: string, values: z.infer<typeof Create
         return error
     }
 }
+
+export const FollowUser = async(userId:string)=>{
+    try {
+        
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}

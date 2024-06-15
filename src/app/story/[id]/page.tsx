@@ -1,5 +1,6 @@
 import { getAuthOptions } from "@/auth/auth";
 import { fetchPostByPostId, fetchResponseByPostId } from "@/auth/fetch";
+import Follow from "@/components/Follow";
 import ShowIcons from "@/components/ShowIcons";
 import Timestamp from "@/components/Timestamps";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -28,7 +29,6 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
       )}
       <div className="lg:text-4xl text-3xl">
         <p className=" font-bold text-gray-700 my-2"> {post?.title}</p>
-        <p className="text-xl text-slate-500">{post?.story}</p>
       </div>
       <div className="flex items-center my-7 gap-4">
         <div>
@@ -46,7 +46,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
               <p className="">{CapName}</p>
             </div>
             <p className="-mt-2">.</p>
-            <button className="text-green-600">Follow</button>
+           <Follow/>
           </div>
           <div className="flex items-center gap-4 mt-1">
             <p className="text-[13px] text-gray-600">4 min read</p>
@@ -57,10 +57,12 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
           </div>
         </div>
       </div>
+
       <div className="border-b border-t py-3">
         {/* @ts-ignore */}
         <ShowIcons post={post} user={user} response={response} />
       </div>
+      <p className="text-xl text-slate-500 my-6">{post?.story}</p>
     </div>
   );
 };

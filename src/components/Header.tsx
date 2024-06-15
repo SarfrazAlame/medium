@@ -6,9 +6,11 @@ import { TfiWrite } from "react-icons/tfi";
 import Link from "next/link";
 import { getAuthOptions } from "@/auth/auth";
 import Image from "next/image";
+import Profile from "./Profile";
 
 const Header = async () => {
   const session = await getAuthOptions();
+  const user = session?.user
   return (
     <header>
       <div className="h-16 flex justify-between items-center px-10 border">
@@ -35,13 +37,7 @@ const Header = async () => {
             </div>
           </Link>
           <PiBellThin size={24} className="cursor-pointer" />
-          <Image
-            src={session?.user.image!}
-            alt=""
-            width={30}
-            height={30}
-            className="rounded-full"
-          />
+          <Profile user={user} />
         </div>
       </div>
     </header>

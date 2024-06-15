@@ -34,6 +34,9 @@ export const fetchAllPost = async () => {
                         email: true
                     }
                 }
+            },
+            orderBy:{
+                createdAt:"desc"
             }
         }
         )
@@ -104,7 +107,7 @@ export const fetchResponseByPostId = async (postId: string) => {
                 postId
             },
             orderBy: {
-                createdAt: 'asc'
+                createdAt: 'desc'
             },
             include: {
                 user: true
