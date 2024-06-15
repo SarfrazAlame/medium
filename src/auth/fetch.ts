@@ -17,8 +17,8 @@ export const fetchAllPost = async () => {
                     include: {
                         user: true
                     },
-                    orderBy:{
-                        createdAt:'desc'
+                    orderBy: {
+                        createdAt: 'desc'
                     }
                 },
                 savePost: {
@@ -71,11 +71,7 @@ export const fetchPostByPostId = async (postId: string) => {
             include: {
                 claps: {
                     include: {
-                        user: {
-                            select: {
-                                name: true,
-                            }
-                        }
+                        user: true
                     }
                 },
                 response: {
@@ -88,22 +84,35 @@ export const fetchPostByPostId = async (postId: string) => {
                         user: true
                     }
                 },
-                user: {
-                    select: {
-                        id: true,
-                        name: true,
-                        image: true,
-                        email: true
-                    }
-                }
+                user: true
             }
         })
 
-        return {post}
+        return { post }
     } catch (error) {
         console.log(error)
         return {
             message: "failed to fetch post"
         }
+    }
+}
+
+export const fetchResponseByPostId = async (postId: string) => {
+    try {
+        const response = await prisma.response.findMany({
+            where: {
+                postId
+            },
+            orderBy: {
+                createdAt: 'asc'
+            },
+            include: {
+                user: true
+            }
+        })
+        return response
+    } catch (error) {
+        console.log(error)
+        console.log(error)
     }
 }

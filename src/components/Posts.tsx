@@ -20,7 +20,7 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
           </div>
           <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
         </div>
-        <div className="flex gap-8 items-center">
+        <div className="flex gap-8 items-center ">
           <div className="flex flex-col">
             <p className="text-2xl font-bold text-gray-700">{post.title}</p>
             <p className="text-sm  text-zinc-600">{post.story}</p>
@@ -30,8 +30,8 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
               <Image
                 src={post.fileUrl || ""}
                 alt="image"
-                height="80"
-                width="80"
+                height="300"
+                width="300"
               />
             ) : null}
           </div>

@@ -2,16 +2,10 @@ import type { Post, Response, Claps, Follows, SavedPost, User } from "@prisma/cl
 
 
 export type PostWithAll = Post & {
-   response: Response[],
-   claps: Claps[],
-   savedPost: SavedPost[],
-   user: User
-}
+   response: Response & User[],
+   claps: Claps & User[],
+   savedPost: SavedPost & User[],
+   user: User  
+} 
 
-
-export type PostWithPostId = Post & {
-   response: Response,
-   claps: Claps[],
-   savedPost: SavedPost[],
-   user: User | null
-} | null
+ 

@@ -9,7 +9,7 @@ export default function StoryLayout({
   return (
     <div>
       <Header />
-      <div className="flex justify-center items-center">{children}</div>
+      <div className="flex w-full justify-center items-center">{children}</div>
     </div>
   );
 }
