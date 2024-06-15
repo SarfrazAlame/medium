@@ -14,15 +14,17 @@ type User =
 const LowerSection = async ({
   post,
   user,
-  follower
+  follower,
+  savedpost,
 }: {
   post: PostWithAll;
   user: User;
-  follower:string
+  follower: string;
+  savedpost: string;
 }) => {
   return (
     <>
-      <ClapsResponse post={post} user={user} follower={follower}/>
+      <ClapsResponse post={post} user={user} follower={follower} savedpost={savedpost}/>
     </>
   );
 };

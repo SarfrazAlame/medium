@@ -1,4 +1,4 @@
-import { unstable_noStore as noStore } from "next/cache";
+import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { getUserId } from "./getUserId"
 import prisma from "./prisma"
 
@@ -146,10 +146,16 @@ export const fetchSaved = async (postId: string) => {
     try {
         const response = await prisma.savedPost.findUnique({
             where: {
-                postId,
-                userId
+                postId_userId: {
+                    postId,
+                    userId
+                }
             }
         })
+
+        revalidatePath('/dashboard')
+        return response
+
     } catch (error) {
         console.log(error)
         return error

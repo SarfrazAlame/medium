@@ -4,6 +4,7 @@ import { CreatePost, CreateResponse } from "./schema"
 import prisma from "./prisma"
 import { getUserId } from "./getUserId"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 export default async function Postform(values: z.infer<typeof CreatePost>) {
 
@@ -35,7 +36,8 @@ export default async function Postform(values: z.infer<typeof CreatePost>) {
                 message: "error is ", error
             }
         }
-        revalidatePath('/dashboard')
+        revalidatePath('/')
+        redirect('/')
     } else {
         console.log('nhiohai')
     }
@@ -126,6 +128,27 @@ export const FollowUser = async (IdOfUserWhoPost: string) => {
 
 export const SavePost = async (postId: string) => {
     const userId = await getUserId()
+
+    const response = await prisma.savedPost.findUnique({
+        where: {
+            postId_userId: {
+                postId,
+                userId
+            }
+        }
+    })
+
+    if (response) {
+        await prisma.savedPost.delete({
+            where: {
+                postId_userId: {
+                    postId,
+                    userId
+                }
+            }
+        })
+        revalidatePath('/dashboard')
+    }
     try {
         await prisma.savedPost.create({
             data: {

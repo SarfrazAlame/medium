@@ -9,10 +9,13 @@ import { fetchFollower, fetchSaved } from "@/auth/fetch";
 const Posts = async ({ post }: { post: PostWithAll }) => {
   const session = await getAuthOptions();
   const user = session?.user;
-  const follower:any = await fetchFollower(post.user.id);
-  const fetchpost = await fetchSaved(post.id)
+  const follower: any = await fetchFollower(post.user.id);
+  const savedpost: any = await fetchSaved(post.id);
+
+  const stories = post.story.slice(0, 70);
+
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 border-b my-3 pb-3">
       <Link href={`/story/${post.id}`}>
         <div className="flex gap-3 items-center">
           <div>
@@ -26,10 +29,10 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
           </div>
           <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
         </div>
-        <div className="flex gap-8 items-center ">
-          <div className="flex flex-col">
+        <div className="flex gap-8 items-center my-2 ">
+          <div className="flex flex-col gap-y-2">
             <p className="text-2xl font-bold text-gray-700">{post.title}</p>
-            <p className="text-sm  text-zinc-600">{post.story}</p>
+            <p className="text-sm  text-zinc-600">{stories}</p>
           </div>
           <div>
             {post?.fileUrl ? (
@@ -44,7 +47,12 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
         </div>
       </Link>
       <div>
-        <LowerSection post={post} user={user} follower={follower}/>
+        <LowerSection
+          post={post}
+          user={user}
+          follower={follower}
+          savedpost={savedpost}
+        />
       </div>
     </div>
   );

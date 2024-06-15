@@ -8,6 +8,7 @@ import { CiSaveUp2 } from "react-icons/ci";
 import ThreeDots from "./ThreeDots";
 import { SavePost, likePost } from "@/auth/action";
 import { PostWithAll } from "@/auth/types";
+import { BsFillSaveFill, BsSave } from "react-icons/bs";
 
 type User =
   | {
@@ -23,10 +24,12 @@ const ClapsResponse = ({
   post,
   user,
   follower,
+  savedpost,
 }: {
   post: PostWithAll;
   user: User;
   follower: string;
+  savedpost: string;
 }) => {
   return (
     <div className="flex   justify-between">
@@ -51,10 +54,21 @@ const ClapsResponse = ({
       </div>
 
       <div className="flex gap-5">
-        <CiSaveUp2
-          className="text-gray-600  cursor-pointer"
-          onClick={() => SavePost(post.id)}
-        />
+        {savedpost ? (
+          <>
+            <BsFillSaveFill
+              className="text-gray-600  cursor-pointer"
+              onClick={() => SavePost(post.id)}
+            />
+          </>
+        ) : (
+          <>
+            <BsSave
+              className="text-gray-600  cursor-pointer"
+              onClick={() => SavePost(post.id)}
+            />
+          </>
+        )}
         <ThreeDots post={post} user={user} follower={follower} />
       </div>
     </div>
