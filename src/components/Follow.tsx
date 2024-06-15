@@ -1,7 +1,6 @@
 "use client";
 import { FollowUser } from "@/auth/action";
 import React from "react";
-import toast from "react-hot-toast";
 
 type userProps = {
   id: string;
@@ -14,22 +13,24 @@ type userProps = {
 };
 
 const Follow = ({ user, follower }: { user: userProps; follower: string }) => {
-  const Follows = async () => {
-    try {
-      await FollowUser(user?.id);
-    } catch (error) {
-      toast.error("something went wrong");
-      console.log(error);
-    }
-  };
+  console.log(follower);
+  console.log(user.id);
   return (
     <div>
       {follower ? (
         <>
-          <button onClick={Follows}>Following</button>
+          <button
+            onClick={() => FollowUser(user.id)}
+            className="text-gray-500 text-sm"
+          >
+            Following
+          </button>
         </>
       ) : (
-        <button className="text-sm text-green-500" onClick={Follows}>
+        <button
+          className="text-sm text-green-500"
+          onClick={() => FollowUser(user.id)}
+        >
           Follow
         </button>
       )}

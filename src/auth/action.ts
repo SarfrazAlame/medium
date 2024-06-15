@@ -81,39 +81,42 @@ export const ResponsePost = async (postId: string, values: z.infer<typeof Create
     }
 }
 
-export const FollowUser = async (userId: string) => {
-    const id = await getUserId()
+export const FollowUser = async (IdOfUserWhoPost: string) => {
+    const userId = await getUserId()
 
-    try {
-        const response = await prisma.follows.findUnique({
+
+    const response = await prisma.follows.findUnique({
+        where: {
+            followerId_followingId: {
+                followerId: userId,
+                followingId: IdOfUserWhoPost,
+            }
+        }
+    })
+
+    if (response) {
+        await prisma.follows.delete({
             where: {
                 followerId_followingId: {
-                    followingId: userId,
-                    followerId: id,
+                    followerId: userId,
+                    followingId: IdOfUserWhoPost
                 }
             }
         })
-
-        if (!response) {
-            await prisma.follows.delete({
-                where: {
-                    followerId_followingId: {
-                        followerId: userId,
-                        followingId: id
-                    }
-                }
-            })
+        revalidatePath('/dashboard')
+        return {
+            message: "database error"
         }
-
+    }
+    try {
         await prisma.follows.create({
             data: {
-                followingId: userId,
-                followerId: id,
+                followerId: userId,
+                followingId: IdOfUserWhoPost,
             }
         })
 
         revalidatePath(`/dashboard`)
-
     } catch (error) {
         console.log(error)
         return error

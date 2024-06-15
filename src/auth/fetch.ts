@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache"
+import { unstable_noStore as noStore  } from "next/cache";
 import { getUserId } from "./getUserId"
 import prisma from "./prisma"
 
@@ -37,8 +37,8 @@ export const fetchAllPost = async () => {
                     }
                 }
             },
-            orderBy:{
-                createdAt:"desc"
+            orderBy: {
+                createdAt: "desc"
             }
         }
         )
@@ -122,18 +122,18 @@ export const fetchResponseByPostId = async (postId: string) => {
     }
 }
 
-export const fetchFollower = async(id:string)=>{
+export const fetchFollower = async (IdOfUserWhoPost: string) => {
+    noStore()
     const userId = await getUserId()
     try {
         const response = await prisma.follows.findUnique({
-            where:{
-                followerId_followingId:{
-                    followerId:id,
-                    followingId:userId
+            where: {
+                followerId_followingId: {
+                    followerId: userId,
+                    followingId: IdOfUserWhoPost
                 }
             }
         })
-
         return response
     } catch (error) {
         console.log(error)
