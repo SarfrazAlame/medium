@@ -1,3 +1,5 @@
+import { revalidatePath } from "next/cache"
+import { getUserId } from "./getUserId"
 import prisma from "./prisma"
 
 export const fetchAllPost = async () => {
@@ -117,5 +119,24 @@ export const fetchResponseByPostId = async (postId: string) => {
     } catch (error) {
         console.log(error)
         console.log(error)
+    }
+}
+
+export const fetchFollower = async(id:string)=>{
+    const userId = await getUserId()
+    try {
+        const response = await prisma.follows.findUnique({
+            where:{
+                followerId_followingId:{
+                    followerId:id,
+                    followingId:userId
+                }
+            }
+        })
+
+        return response
+    } catch (error) {
+        console.log(error)
+        return error
     }
 }

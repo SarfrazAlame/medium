@@ -1,5 +1,9 @@
 import { getAuthOptions } from "@/auth/auth";
-import { fetchPostByPostId, fetchResponseByPostId } from "@/auth/fetch";
+import {
+  fetchFollower,
+  fetchPostByPostId,
+  fetchResponseByPostId,
+} from "@/auth/fetch";
 import Follow from "@/components/Follow";
 import ShowIcons from "@/components/ShowIcons";
 import Timestamp from "@/components/Timestamps";
@@ -17,6 +21,8 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const user = session?.user;
 
   const response = await fetchResponseByPostId(id);
+  // @ts-ignore
+  const follower: any = await fetchFollower(post?.user.id);
 
   return (
     <div className="mt-14 md:w-[46rem] w-full">
@@ -46,7 +52,8 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
               <p className="">{CapName}</p>
             </div>
             <p className="-mt-2">.</p>
-           <Follow/>
+            {/* @ts-ignore */}
+            <Follow user={post?.user} follower={follower} />
           </div>
           <div className="flex items-center gap-4 mt-1">
             <p className="text-[13px] text-gray-600">4 min read</p>

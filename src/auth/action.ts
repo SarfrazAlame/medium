@@ -81,9 +81,39 @@ export const ResponsePost = async (postId: string, values: z.infer<typeof Create
     }
 }
 
-export const FollowUser = async(userId:string)=>{
+export const FollowUser = async (userId: string) => {
+    const id = await getUserId()
+
     try {
-        
+        const response = await prisma.follows.findUnique({
+            where: {
+                followerId_followingId: {
+                    followingId: userId,
+                    followerId: id,
+                }
+            }
+        })
+
+        if (!response) {
+            await prisma.follows.delete({
+                where: {
+                    followerId_followingId: {
+                        followerId: userId,
+                        followingId: id
+                    }
+                }
+            })
+        }
+
+        await prisma.follows.create({
+            data: {
+                followingId: userId,
+                followerId: id,
+            }
+        })
+
+        revalidatePath(`/dashboard`)
+
     } catch (error) {
         console.log(error)
         return error

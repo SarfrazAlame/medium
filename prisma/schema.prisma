@@ -59,8 +59,8 @@ model User {
   saved         SavedPost[]
   claps         Claps[]
   response      Response[]
-  followedBy    Follows[]   @relation("following")
   following     Follows[]   @relation("follower")
+  followedBy    Follows[]   @relation("following")
   accounts      Account[]
   sessions      Session[]
 
@@ -105,7 +105,7 @@ model Response {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id],onDelete: Cascade)
 }
 
 model SavedPost {
@@ -114,15 +114,15 @@ model SavedPost {
 
   postId String
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id],onDelete: Cascade)
 
   @@index([userId])
 }
 
 model Follows {
-  follower    User   @relation("follower", fields: [followerId], references: [id])
+  follower    User   @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
   followerId  String
-  following   User   @relation("following", fields: [followingId], references: [id])
+  following   User   @relation("following", fields: [followingId], references: [id], onDelete: Cascade)
   followingId String
 
   @@id([followerId, followingId])
