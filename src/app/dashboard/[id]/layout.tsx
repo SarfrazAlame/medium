@@ -9,12 +9,7 @@ export default function ProfileLayout({
   return (
     <div>
       <Header />
-      <div className="flex w-full justify-center items-center">
-        <div className="w-1/2 border-r">{children}</div>
-        <div className="w-1/6">
-          <LeftProfile />
-        </div>
-      </div>
+      <div>{children}</div>
     </div>
   );
 }

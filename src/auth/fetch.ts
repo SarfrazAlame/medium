@@ -1,6 +1,7 @@
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { getUserId } from "./getUserId"
 import prisma from "./prisma"
+import { tree } from "next/dist/build/templates/app-page";
 
 export const fetchAllPost = async () => {
     try {
@@ -191,15 +192,62 @@ export const fetchUserByUserId = async (id: string) => {
                         user: true
                     }
                 },
-                posts:{
-                    select:{
-                        title:true,
-                        story:true
+                posts: {
+                    select: {
+                        title: true,
+                        story: true
                     }
                 }
             }
         })
         return ProfileUser
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+export const fetchFollowingById = async (id: string) => {
+    try {
+        const followings = await prisma.follows.findMany({
+            where: {
+                followerId: id
+            },
+            include: {
+                following: {
+                    select: {
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
+            }
+        })
+        return followings
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+export const fetchFollowingGetLength = async (id: string) => {
+    try {
+        const followings = await prisma.follows.findMany({
+            where: {
+                followerId: id
+            },
+            include: {
+                following: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
+            }
+        })
+        return followings.length
     } catch (error) {
         console.log(error)
         return error
