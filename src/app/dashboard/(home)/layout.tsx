@@ -11,7 +11,7 @@ export default function StoryLayout({
     <div>
       <Header />
       <div className="w-full flex border-r mx-4">
-        <div className="flex w-2/3 mx-auto">
+        <div className="flex lg:w-3/4 xl:w-2/3 w-full mx-auto">
           <div className="flex flex-col md:w-2/3 items-center border-r">
             <div className="flex flex-col w-full">
               <div className="">

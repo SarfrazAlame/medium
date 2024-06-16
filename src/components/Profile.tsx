@@ -11,6 +11,7 @@ import Image from "next/image";
 import { Library, Notebook, User2 } from "lucide-react";
 import { IoMdStats } from "react-icons/io";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 type User =
   | {
@@ -38,7 +39,12 @@ const Profile = ({ user }: { user: User }) => {
       <DropdownMenuContent className="w-72 gap-y-3">
         <DropdownMenuItem className="my-3 gap-3 cursor-pointer">
           <User2 className="text-gray-500" />
-          <p className="text-[13px] text-gray-500">Profile</p>
+          <Link
+            href={`/dashboard/${user?.id}`}
+            className="text-[13px] text-gray-500"
+          >
+            Profile
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="my-3 gap-3 cursor-pointer">
           <Library size={20} className="text-gray-500" />

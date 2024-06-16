@@ -16,12 +16,12 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
   const response = await fetchResponseByPostId(post.id);
 
   return (
-    <div className="flex gap-x-8 justify-between border-b my-3">
+    <div className="flex gap-x-8   justify-between border-b my-3">
       <div
         className={
           post.fileUrl
-            ? "h-36 w-full flex flex-col gap-y-6 pb-10"
-            : "`h-36 w-4/5 flex flex-col gap-y-6 my-3`"
+            ? "h-36 w-full flex flex-col gap-y-6 pb-16"
+            : "h-36 w-4/5 flex flex-col gap-y-6 pb-6 my-3"
         }
       >
         <Link href={`/story/${post.id}`} className="w-full flex flex-col">

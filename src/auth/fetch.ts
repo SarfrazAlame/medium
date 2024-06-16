@@ -163,7 +163,7 @@ export const fetchSaved = async (postId: string) => {
     }
 }
 
-export const fetchAllUser = async()=>{
+export const fetchAllUser = async () => {
     try {
         const user = await prisma.user.findMany({})
         revalidatePath('/dashboard')
@@ -171,5 +171,31 @@ export const fetchAllUser = async()=>{
     } catch (error) {
         console.log(error)
         return
+    }
+}
+
+export const fetchUserByUserId = async (id: string) => {
+    try {
+        const ProfileUser = await prisma.user.findUnique({
+            where: {
+                id
+            },
+            include: {
+                response: {
+                    include: {
+                        user: true
+                    }
+                },
+                saved: {
+                    include: {
+                        user: true
+                    }
+                }
+            }
+        })
+        return ProfileUser
+    } catch (error) {
+        console.log(error)
+        return error
     }
 }
