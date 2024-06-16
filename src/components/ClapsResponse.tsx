@@ -36,8 +36,8 @@ const ClapsResponse = ({
   response: Response;
 }) => {
   return (
-    <div className="flex   justify-between">
-      <div className="flex items-center gap-10">
+    <>
+      <div className="flex gap-10">
         <div className="flex items-center gap-6">
           <StarIcon size={10} className="cursor-pointer" />
           <Timestamps createdAt={post.createdAt} className="cursor-pointer" />
@@ -74,7 +74,7 @@ const ClapsResponse = ({
         )}
         <ThreeDots post={post} user={user} follower={follower} />
       </div>
-    </div>
+    </>
   );
 };
 

@@ -134,6 +134,7 @@ export const fetchFollower = async (IdOfUserWhoPost: string) => {
                 }
             }
         })
+        revalidatePath('/dashboard')
         return response
     } catch (error) {
         console.log(error)
@@ -159,5 +160,16 @@ export const fetchSaved = async (postId: string) => {
     } catch (error) {
         console.log(error)
         return error
+    }
+}
+
+export const fetchAllUser = async()=>{
+    try {
+        const user = await prisma.user.findMany({})
+        revalidatePath('/dashboard')
+        return user
+    } catch (error) {
+        console.log(error)
+        return
     }
 }

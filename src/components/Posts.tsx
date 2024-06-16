@@ -16,46 +16,62 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
   const response = await fetchResponseByPostId(post.id);
 
   return (
-    <div className="flex flex-col gap-y-4 border-b my-3 pb-3">
-      <Link href={`/story/${post.id}`}>
-        <div className="flex gap-3 items-center">
-          <div>
-            <Image
-              src={post.user.image || ""}
-              alt=""
-              height={25}
-              width={25}
-              className="rounded-full"
-            />
-          </div>
-          <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
-        </div>
-        <div className="flex gap-8 items-center my-2 ">
-          <div className="flex flex-col gap-y-2">
-            <p className="text-2xl font-bold text-gray-700">{post.title}</p>
-            <p className="text-sm  text-zinc-600">{stories}</p>
-          </div>
-          <div>
-            {post?.fileUrl ? (
+    <div className="flex gap-x-8 justify-between border-b my-3">
+      <div
+        className={
+          post.fileUrl
+            ? "h-36 w-full flex flex-col gap-y-6 pb-10"
+            : "`h-36 w-4/5 flex flex-col gap-y-6 my-3`"
+        }
+      >
+        <Link href={`/story/${post.id}`} className="w-full flex flex-col">
+          <div className="flex gap-3 items-center">
+            <div>
               <Image
-                src={post.fileUrl || ""}
-                alt="image"
-                height="300"
-                width="300"
+                src={post.user.image || ""}
+                alt=""
+                height={25}
+                width={25}
+                className="rounded-full"
               />
-            ) : null}
+            </div>
+            <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
           </div>
+          <div className="flex gap-8 items-center my-2 ">
+            <div>
+              <div
+                className={
+                  post?.fileUrl
+                    ? "flex flex-col gap-y-2"
+                    : "flex flex-col gap-y-2"
+                }
+              >
+                <p className="text-2xl font-bold text-gray-700">{post.title}</p>
+                <p className="text-sm  text-zinc-600">{stories}</p>
+              </div>
+            </div>
+          </div>
+        </Link>
+        <div className="-mt-3 flex justify-between pb-10">
+          <LowerSection
+            post={post}
+            user={user}
+            follower={follower}
+            savedpost={savedpost}
+            // @ts-ignore
+            response={response}
+          />
         </div>
-      </Link>
-      <div>
-        <LowerSection
-          post={post}
-          user={user}
-          follower={follower}
-          savedpost={savedpost}
-          // @ts-ignore
-          response={response}
-        />
+      </div>
+      <div className={post.fileUrl ? "mt-4" : ""}>
+        {post?.fileUrl ? (
+          <Image
+            src={post.fileUrl || ""}
+            alt="image"
+            height="160"
+            width="160"
+          />
+        ) : null}
       </div>
     </div>
   );

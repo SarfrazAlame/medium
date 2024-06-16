@@ -17,17 +17,23 @@ const LowerSection = async ({
   user,
   follower,
   savedpost,
-  response
+  response,
 }: {
   post: PostWithAll;
   user: User;
   follower: string;
   savedpost: string;
-  response:Response
+  response: Response;
 }) => {
   return (
     <>
-      <ClapsResponse post={post} user={user} follower={follower} savedpost={savedpost} response={response}/>
+        <ClapsResponse
+          post={post}
+          user={user}
+          follower={follower}
+          savedpost={savedpost}
+          response={response}
+        />
     </>
   );
 };

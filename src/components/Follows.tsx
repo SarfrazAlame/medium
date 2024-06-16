@@ -1,6 +1,7 @@
 import { FollowUser } from "@/auth/action";
 import { PostWithAll } from "@/auth/types";
 import React from "react";
+import toast from "react-hot-toast";
 
 const Follows = ({
   post,
@@ -16,7 +17,10 @@ const Follows = ({
           {" "}
           <button
             className="text-sm text-gray-600"
-            onClick={() => FollowUser(post.user.id)}
+            onClick={() => {
+              FollowUser(post.user.id);
+              toast.success(`you've unfollowed ${post.user.name}`);
+            }}
           >
             Unfollow author
           </button>
@@ -26,7 +30,10 @@ const Follows = ({
           {" "}
           <button
             className="text-sm text-gray-600"
-            onClick={() => FollowUser(post.user.id)}
+            onClick={() => {
+              FollowUser(post.user.id);
+              toast.success(`you'r now following ${post.user.name}`);
+            }}
           >
             Follow author
           </button>
