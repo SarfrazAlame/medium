@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import {
@@ -7,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { PostWithAll } from "@/auth/types";
-import { FollowUser } from "@/auth/action";
+import { DeletePost, FollowUser } from "@/auth/action";
 import Follows from "./Follows";
 
 type User =
@@ -20,7 +21,15 @@ type User =
     }
   | undefined;
 
-const ThreeDots = ({ post, user, follower }: { post: PostWithAll; user: User, follower:string }) => {
+const ThreeDots = ({
+  post,
+  user,
+  follower,
+}: {
+  post: PostWithAll;
+  user: User;
+  follower: string;
+}) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -30,7 +39,12 @@ const ThreeDots = ({ post, user, follower }: { post: PostWithAll; user: User, fo
         <DropdownMenuItem>
           {post?.user.id === user?.id ? (
             <>
-              <button className="text-sm text-red-500">Delete</button>
+              <button
+                className="text-sm text-red-500"
+                onClick={() => DeletePost(post.id)}
+              >
+                Delete
+              </button>
             </>
           ) : (
             <>
@@ -39,7 +53,7 @@ const ThreeDots = ({ post, user, follower }: { post: PostWithAll; user: User, fo
           )}
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Follows post={post} follower={follower}/>
+          <Follows post={post} follower={follower} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

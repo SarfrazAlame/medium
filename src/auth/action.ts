@@ -164,3 +164,17 @@ export const SavePost = async (postId: string) => {
         }
     }
 }
+
+export const DeletePost = async (postId: string) => {
+    try {
+        await prisma.post.delete({
+            where: {
+                id: postId
+            }
+        })
+        revalidatePath('/dashboard')
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
