@@ -26,16 +26,18 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
       >
         <Link href={`/story/${post.id}`} className="w-full flex flex-col">
           <div className="flex gap-3 items-center">
-            <div>
-              <Image
-                src={post.user.image || ""}
-                alt=""
-                height={25}
-                width={25}
-                className="rounded-full"
-              />
-            </div>
-            <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
+            <Link href={`/dashboard/${post.user.id}`} className="flex gap-3 items-center">
+              <div>
+                <Image
+                  src={post.user.image || ""}
+                  alt=""
+                  height={25}
+                  width={25}
+                  className="rounded-full"
+                />
+              </div>
+              <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
+            </Link>
           </div>
           <div className="flex gap-8 items-center my-2 ">
             <div>

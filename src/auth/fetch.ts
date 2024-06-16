@@ -190,6 +190,12 @@ export const fetchUserByUserId = async (id: string) => {
                     include: {
                         user: true
                     }
+                },
+                posts:{
+                    select:{
+                        title:true,
+                        story:true
+                    }
                 }
             }
         })

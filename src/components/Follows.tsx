@@ -18,7 +18,7 @@ const Follows = ({
           <button
             className="text-sm text-gray-600"
             onClick={() => {
-              FollowUser(post.user.id);
+              FollowUser(post.user?.id);
               toast.success(`you've unfollowed ${post.user.name}`);
             }}
           >
@@ -31,8 +31,8 @@ const Follows = ({
           <button
             className="text-sm text-gray-600"
             onClick={() => {
-              FollowUser(post.user.id);
-              toast.success(`you'r now following ${post.user.name}`);
+              FollowUser(post.user?.id);
+              toast.success(`you'r now following ${post.user?.name}`);
             }}
           >
             Follow author

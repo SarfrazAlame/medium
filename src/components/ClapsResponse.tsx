@@ -3,8 +3,6 @@ import React from "react";
 import { StarIcon } from "lucide-react";
 import Timestamps from "./Timestamps";
 import { PiHandsClappingThin } from "react-icons/pi";
-import { FaComment } from "react-icons/fa";
-import { CiSaveUp2 } from "react-icons/ci";
 import ThreeDots from "./ThreeDots";
 import { SavePost, likePost } from "@/auth/action";
 import { PostWithAll } from "@/auth/types";

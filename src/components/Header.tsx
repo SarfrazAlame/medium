@@ -5,7 +5,6 @@ import { PiBellThin } from "react-icons/pi";
 import { TfiWrite } from "react-icons/tfi";
 import Link from "next/link";
 import { getAuthOptions } from "@/auth/auth";
-import Image from "next/image";
 import Profile from "./Profile";
 
 const Header = async () => {
