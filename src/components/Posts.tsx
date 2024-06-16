@@ -22,11 +22,13 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
           post.fileUrl
             ? "h-36 w-full flex flex-col gap-y-6 pb-16"
             : "h-36 w-4/5 flex flex-col gap-y-6 pb-6 my-3"
-        }
-      >
+        }>
         <Link href={`/story/${post.id}`} className="w-full flex flex-col">
           <div className="flex gap-3 items-center">
-            <Link href={`/dashboard/${post.user.id}`} className="flex gap-3 items-center">
+            <Link
+              href={`/dashboard/${post.user.id}`}
+              className="flex gap-3 items-center"
+            >
               <div>
                 <Image
                   src={post.user.image || ""}
@@ -36,21 +38,21 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
                   className="rounded-full"
                 />
               </div>
-              <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
+              <div>
+                <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
+              </div>
             </Link>
           </div>
           <div className="flex gap-8 items-center my-2 ">
-            <div>
-              <div
-                className={
-                  post?.fileUrl
-                    ? "flex flex-col gap-y-2"
-                    : "flex flex-col gap-y-2"
-                }
-              >
-                <p className="text-2xl font-bold text-gray-700">{post.title}</p>
-                <p className="text-sm  text-zinc-600">{stories}</p>
-              </div>
+            <div
+              className={
+                post?.fileUrl
+                  ? "flex flex-col gap-y-2"
+                  : "flex flex-col gap-y-2"
+              }
+            >
+              <p className="text-2xl font-bold text-gray-700">{post.title}</p>
+              <p className="text-sm  text-zinc-600">{stories}</p>
             </div>
           </div>
         </Link>

@@ -66,7 +66,6 @@ const LeftProfile = ({
                     <div className="w-72 p-5">
                       <div className="flex items-center gap-2">
                         <div>
-                          {" "}
                           <Image
                             src={follow.following.image!}
                             alt=""
@@ -78,10 +77,6 @@ const LeftProfile = ({
                         <p className="text-xl font-semibold text-gray-800">
                           {follow.following.name}
                         </p>
-                      </div>
-
-                      <div>
-                        <p></p>
                       </div>
                     </div>
                   </DropdownMenuItem>

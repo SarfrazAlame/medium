@@ -1,8 +1,6 @@
 import React from "react";
 import Lists from "./Lists";
-import {
-  fetchFollower,
-  fetchFollowingById,
+import { 
   fetchUserByUserId,
 } from "@/auth/fetch";
 import { UserProps } from "@/app/dashboard/[id]/page";

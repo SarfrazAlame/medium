@@ -131,9 +131,9 @@ const Comment = ({
                                     <p>{res.user.name}</p>
                                   </div>
                                 </div>
-                                <p className="mt-3">
+                                <div className="mt-3">
                                   <BsThreeDots />
-                                </p>
+                                </div>
                               </div>
                               <div>
                                 <p className="text-gray-950">{res.body}</p>
