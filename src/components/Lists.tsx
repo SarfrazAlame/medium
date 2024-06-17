@@ -1,5 +1,4 @@
 "use client";
-import { UserProps } from "@/app/dashboard/[id]/page";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Timestamps from "./Timestamps";
@@ -10,6 +9,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
+import Link from "next/link";
+import { ProfileUserProps } from "./GetData";
+import { Post } from "@prisma/client";
 
 const Lists = ({
   id,
@@ -18,11 +20,13 @@ const Lists = ({
   followingLengths,
 }: {
   id: string;
-  user: UserProps;
+  user: ProfileUserProps;
   userId: string;
   followingLengths: number;
 }) => {
   const [data, setData] = useState("");
+
+  const [item, setItem] = useState(false);
 
   useEffect(() => {
     setData("Home");
@@ -57,21 +61,36 @@ const Lists = ({
         <div className="w-full mt-12 flex-col gap-y-4">
           <div className="flex gap-2 items-center">
             <Image
-              src={user.image!}
+              src={user?.image!}
               alt=""
               width={25}
               height={25}
               className="rounded-full"
             />
-            <p className="text-sm">{user.name}</p>
+            <p className="text-sm">{user?.name}</p>
           </div>
-          <div className="mt-4 w-1/2 border-b pb-12">
-            {user.posts?.map((post) => (
+          <div className="mt-4 mr-20 border-b pb-12">
+            {/* @ts-ignore */}
+            {user?.posts?.map((post: Post) => (
               <div>
-                <p className="text-xl font-bold text-gray-700">{post.title}</p>
-                <p className="mt-2 text-sm  text-gray-600">
-                  {post.story.slice(0, 50)}
-                </p>
+                <div className="flex w-full justify-between">
+                  <Link href={`/story/${post.id}`}>
+                    <p className="text-xl font-bold text-gray-700">
+                      {post.title}
+                    </p>
+                    <p className="mt-2 text-sm  text-gray-600">
+                      {post.story.slice(0, 50)}
+                    </p>
+                  </Link>
+                  <div>
+                    <Image
+                      src={post.fileUrl!}
+                      alt=""
+                      width={120}
+                      height={120}
+                    />
+                  </div>
+                </div>
 
                 <div>
                   <Timestamps createdAt={post.createdAt} className="" />
@@ -127,24 +146,77 @@ const Lists = ({
       {userId === id && (
         <>
           {data === "List" && (
-            <div className="w-full my-10 flex flex-col gap-y-3 bg-gray-50 p-5">
-              <div className="flex gap-2">
-                <div>
-                  <Image
-                    src={user.image!}
-                    alt=""
-                    width={25}
-                    height={25}
-                    className="rounded-full"
-                  />
+            <>
+              {!item ? (
+                <div onClick={() => setItem(true)} className="cursor-pointer">
+                  <div className="w-full my-10 flex flex-col gap-y-3 bg-gray-50 p-5">
+                    <div className="flex gap-2">
+                      <div>
+                        <Image
+                          src={user?.image!}
+                          alt=""
+                          width={25}
+                          height={25}
+                          className="rounded-full"
+                        />
+                      </div>
+                      <p className="text-sm text-gray-600">{user?.name}</p>
+                    </div>
+                    <p className="text-xl font-bold text-gray-800">
+                      Reading list
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {user?.saved.length} stories
+                    </p>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600">{user.name}</p>
-              </div>
-              <p className="text-xl font-bold text-gray-800">Reading list</p>
-              <p className="text-sm text-gray-500">
-                {user.saved.length} stories{" "}
-              </p>
-            </div>
+              ) : (
+                <div>
+                  <p className="text-xl text-gray-600 font-bold py-8">
+                    Reading List
+                  </p>
+                  {user?.saved.map((save) => (
+                    <div className="flex flex-col gap-y-3 mb-10 border-b pb-4">
+                      <div className="flex gap-2 items-center">
+                        <div>
+                          {save.post.user.image && (
+                            <Image
+                              src={save?.post?.user?.image!}
+                              alt=""
+                              width={25}
+                              height={25}
+                              className="rounded-full"
+                            />
+                          )}
+                        </div>
+                        <p className="">{save.user.name}</p>
+                      </div>
+                      <Link href={`/story/${save.post.id}`} className="flex items-center justify-between mr-20">
+                        <div>
+                          <p className="text-xl font-bold text-gray-800 ">
+                            {save.post.title}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            {save.post.story.slice(0, 60)}
+                          </p>
+                        </div>
+
+                        <div>
+                          {save.post.fileUrl && (
+                            <Image
+                              src={save?.post?.fileUrl}
+                              alt=""
+                              width={120}
+                              height={120}
+                            />
+                          )}
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </>
       )}

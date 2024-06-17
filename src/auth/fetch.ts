@@ -135,8 +135,7 @@ export const fetchFollower = async (IdOfUserWhoPost: string) => {
                 }
             }
         })
-        revalidatePath('/dashboard')
-        return response
+        return (response)
     } catch (error) {
         console.log(error)
         return error
@@ -189,17 +188,34 @@ export const fetchUserByUserId = async (id: string) => {
                 },
                 saved: {
                     include: {
-                        user: true
+                        user: {
+                            select: {
+                                id: true,
+                                name: true,
+                                email: true,
+                                image: true
+                            },
+                        },
+                        post: {
+                            include: {
+                                user: true
+                            },
+
+                        },
                     }
+
                 },
                 posts: {
                     select: {
+                        id: true,
                         title: true,
-                        story: true
+                        story: true,
+                        fileUrl: true
                     }
-                }
-            }
+                },
+            },
         })
+        revalidatePath('/dashboard')
         return ProfileUser
     } catch (error) {
         console.log(error)
@@ -319,7 +335,7 @@ export const fetchFollowingGetLenghtById = async (id: string) => {
                 }
             }
         })
-        return followings 
+        return followings
     } catch (error) {
         console.log(error)
         return error

@@ -27,7 +27,6 @@ const Profile = ({ user }: { user: User }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        {" "}
         <Image
           src={user?.image!}
           alt=""

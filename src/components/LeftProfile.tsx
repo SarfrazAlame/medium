@@ -11,7 +11,6 @@ import {
 } from "./ui/dropdown-menu";
 import {
   fetchFollower,
-  fetchFollowerById,
   fetchFollowerByIdLength,
   fetchFollowingGetLenghtById,
 } from "@/auth/fetch";
@@ -38,26 +37,26 @@ const LeftProfile = async ({
   followings: followingsProps;
   userId: string;
 }) => {
-  const follow: any = await fetchFollowerByIdLength(ProfileUser.id);
+  const follow = (await fetchFollowerByIdLength(ProfileUser?.id)) as number;
   const following = (await fetchFollowingGetLenghtById(
-    ProfileUser.id
+    ProfileUser?.id
   )) as followingsPropsconst;
-  const follower: any = await fetchFollower(ProfileUser.id);
+  const follower = (await fetchFollower(ProfileUser?.id)) as string;
 
   return (
     <div className="p-10">
       <div className="flex flex-col gap-y-7">
         <div>
           <Image
-            src={ProfileUser.image!}
+            src={ProfileUser?.image!}
             alt=""
             width={100}
             height={100}
             className="rounded-full"
           />
         </div>
-        <p className=" font-semibold  text-gray-600">{ProfileUser.name}</p>
-        {userId !== ProfileUser.id && (
+        <p className=" font-semibold  text-gray-600">{ProfileUser?.name}</p>
+        {userId !== ProfileUser?.id && (
           <div>
             <div>
               <p className="-mt-2 text-gray-600 mb-2">{follow} Followers</p>
@@ -65,16 +64,16 @@ const LeftProfile = async ({
             </div>
           </div>
         )}
-        {userId !== ProfileUser.id && (
+        {userId !== ProfileUser?.id && (
           <div>
             <p className="text-lg font-bold text-gray-800 mb-5">Following</p>
             {following?.map((user) => (
-              <div key={user.followerId} className="flex justify-between w-56">
+              <div key={user?.followerId} className="flex justify-between w-56">
                 <div className="flex items-center my-2 gap-3">
                   <div>
                     {" "}
                     <Image
-                      src={user.following.image!}
+                      src={user?.following?.image!}
                       alt=""
                       width={20}
                       height={20}
@@ -82,7 +81,7 @@ const LeftProfile = async ({
                     />
                   </div>
                   <div>
-                    <p className="text-sm">{user.following.name}</p>
+                    <p className="text-sm">{user?.following?.name}</p>
                   </div>
                 </div>
                 <DropdownMenu>
@@ -96,7 +95,7 @@ const LeftProfile = async ({
                         <div className="flex items-center gap-2">
                           <div>
                             <Image
-                              src={user.following.image!}
+                              src={user?.following?.image!}
                               alt=""
                               width={30}
                               height={30}
@@ -104,7 +103,7 @@ const LeftProfile = async ({
                             />
                           </div>
                           <p className="text-xl font-semibold text-gray-800">
-                            {user.following.name}
+                            {user?.following?.name}
                           </p>
                         </div>
                       </div>
@@ -124,7 +123,7 @@ const LeftProfile = async ({
             ))}
           </div>
         )}
-        {userId === ProfileUser.id && (
+        {userId === ProfileUser?.id && (
           <div className="flex flex-col gap-y-4">
             <p className="text-sm text-green-600 hover:text-gray-600 cursor-pointer">
               Edit profile

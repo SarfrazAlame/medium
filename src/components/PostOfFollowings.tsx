@@ -4,6 +4,7 @@ import ComLikeSave from "./ComLikeSave";
 import { PostWithAll } from "@/auth/types";
 import { fetchFollower, fetchSaved } from "@/auth/fetch";
 import { SavedPost } from "@prisma/client";
+import Link from "next/link";
 
 type UserProps = {
   following: {
