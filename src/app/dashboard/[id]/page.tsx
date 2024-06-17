@@ -3,6 +3,7 @@ import {
   fetchFollowingGetLength,
   fetchUserByUserId,
 } from "@/auth/fetch";
+import { getUserId } from "@/auth/getUserId";
 import GetData from "@/components/GetData";
 import LeftProfile from "@/components/LeftProfile";
 import Lists from "@/components/Lists";
@@ -32,6 +33,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const ProfileUser = (await fetchUserByUserId(id)) as UserProps;
 
   const followings = (await fetchFollowingById(id)) as followingsProps;
+  const userId = await getUserId()
 
   const followingLengths: any = await fetchFollowingGetLength(id);
   return (
@@ -42,7 +44,7 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
           <GetData id={id} followingLengths={followingLengths} />
         </div>
         <div className="hidden md:block">
-          <LeftProfile ProfileUser={ProfileUser} followings={followings} />
+          <LeftProfile ProfileUser={ProfileUser} followings={followings} userId={userId} />
         </div>
       </div>
     </div>

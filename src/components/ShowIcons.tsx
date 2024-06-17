@@ -1,31 +1,11 @@
 "use client";
 import { PostWithAll } from "@/auth/types";
-
 import React from "react";
 import { CiSaveUp2 } from "react-icons/ci";
-import { FaComment } from "react-icons/fa";
 import { PiHandsClappingThin } from "react-icons/pi";
 import ThreeDots from "./ThreeDots";
-import { ResponsePost, likePost } from "@/auth/action";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "./ui/sheet";
-import Image from "next/image";
+import { likePost } from "@/auth/action";
 import { Response } from "@prisma/client";
-import { Input } from "./ui/input";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { CreateResponse } from "@/auth/schema";
-import { Form, FormField, FormItem } from "./ui/form";
-import { Button } from "./ui/button";
-import toast from "react-hot-toast";
-import { BsThreeDots } from "react-icons/bs";
 import Comment from "./Comment";
 
 type User =
@@ -60,7 +40,7 @@ const ShowIcons = ({
           <p className="text-gray-600 text-sm">{post?.claps.length}</p>
         </button>
 
-        <Comment post={post} user={user} response={response}/>
+        <Comment post={post} user={user} response={response} />
       </div>
 
       <div className="flex gap-5">

@@ -253,3 +253,27 @@ export const fetchFollowingGetLength = async (id: string) => {
         return error
     }
 }
+
+export const fetchFollowerById = async (id: string) => {
+    try {
+        const followings = await prisma.follows.findMany({
+            where: {
+                followingId: id
+            },
+            include: {
+                follower: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
+            }
+        })
+        return followings.length
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
