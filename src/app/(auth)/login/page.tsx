@@ -1,20 +1,26 @@
 "use client";
-import { signIn } from "next-auth/react";
+import LoginWith from "@/components/LoginWith";
+import Image from "next/image";
 import React from "react";
 
 const page = () => {
   return (
-    <div className="flex w-full justify-center h-4/5 items-center">
-      <div className="flex flex-col items-center">
-        <p className="my-10 text-gray-800 lg:text-3xl md:text-2xl sm:text-xl">
-          Sign In to Use Medium
+    <div className="flex h-full justify-center items-center ">
+      <div className="w-1/2">
+        <p className="text-8xl font-bold">Human stories & ideas</p>
+        <p className="my-3">
+          A place to read, write, and deepen your understanding
         </p>
-        <button
-          className="border px-6 py-2 rounded-full bg-black text-gray-100"
-          onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-        >
-          Sign In With Google
-        </button>
+        <LoginWith text="Start Reading" className="border px-7 text-white py-3 rounded-full bg-gray-900"/>
+      </div>
+      <div className="my-12">
+        <Image
+          src={"/flower.avif"}
+          width={600}
+          height={600}
+          alt=""
+          className="rounded"
+        />
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import LoginWith from "./LoginWith";
 
 const BeforLoginheader = () => {
   return (
@@ -11,11 +12,12 @@ const BeforLoginheader = () => {
         <p className="mx-2 text-3xl font-bold font-serif">Medium</p>
       </div>
       <div className="flex items-center gap-6">
-        <p className="text-sm">Write</p>
-        <p className="text-sm">Sign in</p>
-        <button className="text-sm border px-3 py-2 rounded-full text-white bg-gray-900">
-          Get started
-        </button>
+        <LoginWith text="Write" className="text-sm" />
+        <LoginWith text="Sign in" className="text-sm" />
+        <LoginWith
+          text="Get started"
+          className="border px-7 text-white py-3 rounded-full bg-gray-900"
+        />
       </div>
     </div>
   );

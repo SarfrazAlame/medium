@@ -6,7 +6,7 @@ export default function StoryLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <div className="bg-zinc-100 h-full">
       <BeforLoginheader />
       {children}
     </div>
