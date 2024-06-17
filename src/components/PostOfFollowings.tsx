@@ -42,7 +42,7 @@ const PostOfFollowings = async ({ user }: { user: UserProps }) => {
   const savedpost = (await fetchSaved(user?.following?.id)) as SavedPost;
   const follower: any = await fetchFollower(user?.following?.id);
   return (
-    <div>
+    <div className="mb-8 border-b pb-4">
       <div className="flex gap-3">
         <div>
           <Image
@@ -61,7 +61,9 @@ const PostOfFollowings = async ({ user }: { user: UserProps }) => {
           <div key={post?.id} className="flex justify-between mr-12">
             <div key={post?.id} className="flex flex-col gap-3 mt-3">
               <div>
-                <p className="text-2xl font-bold text-gray-800">{post?.title}</p>
+                <p className="text-2xl font-bold text-gray-800">
+                  {post?.title}
+                </p>
                 <p className="text-sm text-gray-600">
                   {post?.story.slice(0, 60)}
                 </p>
@@ -73,7 +75,9 @@ const PostOfFollowings = async ({ user }: { user: UserProps }) => {
               />
             </div>
             <div>
-              <Image src={post?.fileUrl!} alt="" width={130} height={130} />
+              {post.fileUrl && (
+                <Image src={post?.fileUrl!} alt="" width={130} height={130} />
+              )}
             </div>
           </div>
         ))}

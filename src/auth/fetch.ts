@@ -254,7 +254,7 @@ export const fetchFollowingGetLength = async (id: string) => {
     }
 }
 
-export const fetchFollowerById = async (id: string) => {
+export const fetchFollowerByIdLength = async (id: string) => {
     try {
         const followings = await prisma.follows.findMany({
             where: {
@@ -278,47 +278,94 @@ export const fetchFollowerById = async (id: string) => {
     }
 }
 
+export const fetchFollowerById = async (id: string) => {
+    try {
+        const followings = await prisma.follows.findMany({
+            where: {
+                followingId: id
+            },
+            include: {
+                follower: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
+            }
+        })
+        return followings
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
 
-export const fetchFollowingUser = async(id:string)=>{
+export const fetchFollowingGetLenghtById = async (id: string) => {
+    try {
+        const followings = await prisma.follows.findMany({
+            where: {
+                followerId: id
+            },
+            include: {
+                following: {
+                    select: {
+                        id: true,
+                        name: true,
+                        email: true,
+                        image: true
+                    }
+                }
+            }
+        })
+        return followings 
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}
+
+export const fetchFollowingUser = async (id: string) => {
     try {
         const users = await prisma.follows.findMany({
-            where:{
-                followerId:id
+            where: {
+                followerId: id
             },
-            include:{
-                following:{
-                    include:{
-                        claps:{
-                            include:{
-                                user:true
+            include: {
+                following: {
+                    include: {
+                        claps: {
+                            include: {
+                                user: true
                             }
                         },
-                        response:{
-                            include:{
-                                user:true
+                        response: {
+                            include: {
+                                user: true
                             }
                         },
-                        posts:{
-                            include:{
-                                claps:{
-                                    include:{
-                                        user:true
+                        posts: {
+                            include: {
+                                claps: {
+                                    include: {
+                                        user: true
                                     },
                                 },
-                                response:{
-                                    include:{
-                                        user:true
+                                response: {
+                                    include: {
+                                        user: true
                                     }
                                 },
-                                savePost:{
-                                    include:{
-                                        user:true
+                                savePost: {
+                                    include: {
+                                        user: true
                                     }
                                 },
-                                user:true
+                                user: true
                             }
                         },
-                        saved:true
+                        saved: true
                     },
                 }
             }
@@ -326,6 +373,6 @@ export const fetchFollowingUser = async(id:string)=>{
         return users
     } catch (error) {
         console.log(error)
-        return 
+        return
     }
 }
