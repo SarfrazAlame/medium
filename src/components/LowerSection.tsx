@@ -12,7 +12,7 @@ type User =
     }
   | undefined;
 
-const LowerSection = async ({
+const LowerSection = ({
   post,
   user,
   follower,

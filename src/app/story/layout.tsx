@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import MiniHed from "@/components/MiniHed";
 
 export default function StoryLayout({
   children,

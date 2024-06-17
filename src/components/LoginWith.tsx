@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Dialog,
@@ -7,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog";
+import { signIn } from "next-auth/react";
 
 const LoginWith = ({ text, className }: { text: string; className: any }) => {
   return (
@@ -19,7 +21,10 @@ const LoginWith = ({ text, className }: { text: string; className: any }) => {
           Join Medium.
         </DialogHeader>
         <DialogHeader>
-          <button className="border px-10 py-3 rounded-full border-black hover:bg-gray-100">
+          <button
+            onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
+            className="border px-10 py-3 rounded-full border-black hover:bg-gray-100"
+          >
             Sign up with Google
           </button>
         </DialogHeader>

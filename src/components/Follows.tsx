@@ -1,3 +1,4 @@
+'use client'
 import { FollowUser } from "@/auth/action";
 import { PostWithAll } from "@/auth/types";
 import React from "react";

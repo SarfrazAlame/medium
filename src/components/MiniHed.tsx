@@ -14,7 +14,7 @@ const MiniHed = () => {
           For you
         </Link>
         <Link
-          href={"/dashboard"}
+          href={"/dashboard/following"}
           className="text-[15px] font-light text-gray-700"
         >
           Following

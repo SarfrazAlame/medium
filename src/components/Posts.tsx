@@ -9,10 +9,10 @@ import { fetchFollower, fetchResponseByPostId, fetchSaved } from "@/auth/fetch";
 const Posts = async ({ post }: { post: PostWithAll }) => {
   const session = await getAuthOptions();
   const user = session?.user;
-  const follower: any = await fetchFollower(post.user.id);
+  const follower: any = await fetchFollower(post.user?.id);
   const savedpost: any = await fetchSaved(post.id);
 
-  const stories = post.story.slice(0, 70);
+  const stories = post.story?.slice(0, 70);
   const response = await fetchResponseByPostId(post.id);
 
   return (
@@ -22,16 +22,17 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
           post.fileUrl
             ? "h-36 w-full flex flex-col gap-y-6 pb-16"
             : "h-36 w-4/5 flex flex-col gap-y-6 pb-6 my-3"
-        }>
-        <Link href={`/story/${post.id}`} className="w-full flex flex-col">
+        }
+      >
+        <Link href={`/story/${post?.id}`} className="w-full flex flex-col">
           <div className="flex gap-3 items-center">
             <Link
-              href={`/dashboard/${post.user.id}`}
+              href={`/dashboard/${post.user?.id}`}
               className="flex gap-3 items-center"
             >
               <div>
                 <Image
-                  src={post.user.image || ""}
+                  src={post.user?.image || ""}
                   alt=""
                   height={25}
                   width={25}
@@ -39,7 +40,7 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
                 />
               </div>
               <div>
-                <p className="-mt-1 text-sm tracking-wide">{post.user.name}</p>
+                <p className="-mt-1 text-sm tracking-wide">{post.user?.name}</p>
               </div>
             </Link>
           </div>

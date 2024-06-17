@@ -33,6 +33,7 @@ const ClapsResponse = ({
   savedpost: string;
   response: Response;
 }) => {
+  
   return (
     <>
       <div className="flex gap-10">

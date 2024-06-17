@@ -1,5 +1,4 @@
 import { UserProps } from "@/app/dashboard/[id]/page";
-import Lists from "@/components/Lists";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 

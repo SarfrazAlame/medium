@@ -10,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { fetchFollower, fetchFollowerById } from "@/auth/fetch";
-import { FollowUser } from "@/auth/action";
 import Follow from "./Follow";
 
 const LeftProfile = async ({

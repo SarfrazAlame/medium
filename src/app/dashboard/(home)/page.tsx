@@ -1,5 +1,4 @@
 import Posts from "@/components/Posts";
-import prisma from "@/auth/prisma";
 import { PostWithAll } from "@/auth/types";
 import { fetchAllPost } from "@/auth/fetch";
 

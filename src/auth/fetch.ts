@@ -277,3 +277,55 @@ export const fetchFollowerById = async (id: string) => {
         return error
     }
 }
+
+
+export const fetchFollowingUser = async(id:string)=>{
+    try {
+        const users = await prisma.follows.findMany({
+            where:{
+                followerId:id
+            },
+            include:{
+                following:{
+                    include:{
+                        claps:{
+                            include:{
+                                user:true
+                            }
+                        },
+                        response:{
+                            include:{
+                                user:true
+                            }
+                        },
+                        posts:{
+                            include:{
+                                claps:{
+                                    include:{
+                                        user:true
+                                    },
+                                },
+                                response:{
+                                    include:{
+                                        user:true
+                                    }
+                                },
+                                savePost:{
+                                    include:{
+                                        user:true
+                                    }
+                                },
+                                user:true
+                            }
+                        },
+                        saved:true
+                    },
+                }
+            }
+        })
+        return users
+    } catch (error) {
+        console.log(error)
+        return 
+    }
+}
