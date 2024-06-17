@@ -13,8 +13,6 @@ type userProps = {
 };
 
 const Follow = ({ user, follower }: { user: userProps; follower: string }) => {
-  console.log(follower);
-  console.log(user.id);
   return (
     <div>
       {follower ? (

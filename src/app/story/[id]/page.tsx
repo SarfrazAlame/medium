@@ -1,10 +1,12 @@
 import { getAuthOptions } from "@/auth/auth";
 import {
   fetchFollower,
+  fetchFollowerByIdLength,
   fetchPostByPostId,
   fetchResponseByPostId,
 } from "@/auth/fetch";
 import Follow from "@/components/Follow";
+import FooterProfile from "@/components/FooterProfile";
 import ShowIcons from "@/components/ShowIcons";
 import Timestamp from "@/components/Timestamps";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -21,8 +23,11 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
   const user = session?.user;
 
   const response = await fetchResponseByPostId(id);
+
   // @ts-ignore
   const follower: any = await fetchFollower(post?.user.id);
+  // @ts-ignore
+  const followers = await fetchFollowerByIdLength(post?.user?.id)
 
   return (
     <div className="mt-14 md:w-[46rem] w-full">
@@ -67,11 +72,17 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
 
       <div className="border-b border-t py-3">
         {/* @ts-ignore */}
-        <ShowIcons post={post} user={user} response={response}
+        <ShowIcons post={post} response={response}
+          user={user}
           follower={follower}
         />
       </div>
       <p className="text-xl text-slate-500 my-6">{post?.story}</p>
+
+      <div>
+        {/* @ts-ignore */}
+        <FooterProfile post={post} follower={follower} followers={followers} />
+      </div>
     </div>
   );
 };
