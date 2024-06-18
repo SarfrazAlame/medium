@@ -1,5 +1,4 @@
 import { getAuthOptions } from "@/auth/auth";
-import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -21,7 +20,13 @@ const WriteHeader = async () => {
         <div className="flex items-center gap-5">
           <BsThreeDots className="cursor-pointer" />
           <PiBellThin size={24} className="cursor-pointer" />
-          <Image src={user?.image!} alt="" width={40} height={40} className="rounded-full" />
+          <Image
+            src={user?.image!}
+            alt=""
+            width={40}
+            height={40}
+            className="rounded-full"
+          />
         </div>
       </div>
     </div>
