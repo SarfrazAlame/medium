@@ -1,9 +1,12 @@
 import Posts from "@/components/Posts";
 import { PostWithAll } from "@/auth/types";
 import { fetchAllPost } from "@/auth/fetch";
+import { getUserId } from "@/auth/getUserId";
 
 const page = async () => {
   const PostData = await fetchAllPost();
+  const userId = await getUserId();
+  console.log(userId);
   return (
     <>
       {PostData ? (

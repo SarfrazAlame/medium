@@ -1,9 +1,8 @@
 "use server";
-import { getServerSession } from "next-auth";
-import { authOption } from "./auth";
+import { getAuthOptions } from "./auth";
 
 export const getUserId = async () => {
-  const session = await getServerSession(authOption);
+  const session = await getAuthOptions();
   const userId = session?.user?.id;
 
   if (!userId) {
