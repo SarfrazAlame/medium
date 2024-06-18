@@ -47,13 +47,15 @@ const LeftProfile = async ({
     <div className="p-10">
       <div className="flex flex-col gap-y-7">
         <div>
-          <Image
-            src={ProfileUser?.image!}
-            alt=""
-            width={100}
-            height={100}
-            className="rounded-full"
-          />
+          {ProfileUser?.image && (
+            <Image
+              src={ProfileUser?.image!}
+              alt=""
+              width={100}
+              height={100}
+              className="rounded-full"
+            />
+          )}
         </div>
         <p className=" font-semibold  text-gray-600">{ProfileUser?.name}</p>
         {userId !== ProfileUser?.id && (

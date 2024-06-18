@@ -33,7 +33,6 @@ const ClapsResponse = ({
   savedpost: string;
   response: Response;
 }) => {
-  
   return (
     <>
       <div className="flex gap-10">
@@ -47,8 +46,8 @@ const ClapsResponse = ({
           className="flex items-center gap-1"
         >
           <PiHandsClappingThin className="cursor-pointer" />
-          <p className="text-gray-600 text-sm">{post.claps.length}</p>
         </button>
+        <p className="text-gray-600 text-sm">{post.claps.length}</p>
 
         <div className="flex items-center gap-1">
           <Comment post={post} user={user} response={response} />

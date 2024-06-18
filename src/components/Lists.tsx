@@ -41,14 +41,12 @@ const Lists = ({
           Home
         </button>
         {userId === id && (
-          <>
-            <button
-              onClick={() => setData("List")}
-              className="text-sm text-slate-600 hover:text-slate-900"
-            >
-              List
-            </button>
-          </>
+          <button
+            onClick={() => setData("List")}
+            className="text-sm text-slate-600 hover:text-slate-900"
+          >
+            List
+          </button>
         )}
         <button
           onClick={() => setData("About")}

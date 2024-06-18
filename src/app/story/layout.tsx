@@ -10,9 +10,7 @@ export default function StoryLayout({
     <div>
       <Header />
       <div className="flex w-full justify-center items-center">
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </div>
     </div>
   );

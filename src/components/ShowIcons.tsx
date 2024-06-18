@@ -37,8 +37,8 @@ const ShowIcons = ({
           className="flex items-center gap-1"
         >
           <PiHandsClappingThin className="cursor-pointer" />
-          <p className="text-gray-600 text-sm">{post?.claps.length}</p>
         </button>
+        <p className="text-gray-600 text-sm">{post?.claps.length}</p>
 
         <Comment post={post} user={user} response={response} />
       </div>

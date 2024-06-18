@@ -1,6 +1,5 @@
 import { UserProps } from "@/app/dashboard/[id]/page";
 import React from "react";
-import { BsThreeDots } from "react-icons/bs";
 
 const SubHeader = async ({ ProfileUser }: { ProfileUser: UserProps }) => {
   return (

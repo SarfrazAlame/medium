@@ -15,7 +15,6 @@ const Follows = ({
     <div>
       {follower ? (
         <>
-          {" "}
           <button
             className="text-sm text-gray-600"
             onClick={() => {
@@ -28,7 +27,6 @@ const Follows = ({
         </>
       ) : (
         <>
-          {" "}
           <button
             className="text-sm text-gray-600"
             onClick={() => {

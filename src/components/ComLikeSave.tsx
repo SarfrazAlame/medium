@@ -32,8 +32,8 @@ const ComLikeSave = ({
           className="flex items-center gap-1"
         >
           <PiHandsClappingThin className="cursor-pointer" />
-          <p className="text-gray-600 text-sm">{post.claps.length}</p>
         </button>
+        <p className="text-gray-600 text-sm">{post.claps.length}</p>
 
         <div className="flex items-center gap-1">
           <Comment post={post} user={post.user} response={post.response} />
