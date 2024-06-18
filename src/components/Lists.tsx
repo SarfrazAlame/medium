@@ -60,13 +60,15 @@ const Lists = ({
       {data === "Home" && (
         <div className="w-full mt-12 flex-col gap-y-4">
           <div className="flex gap-2 items-center">
-            <Image
-              src={user?.image!}
-              alt=""
-              width={25}
-              height={25}
-              className="rounded-full"
-            />
+            {user?.image && (
+              <Image
+                src={user?.image!}
+                alt=""
+                width={25}
+                height={25}
+                className="rounded-full"
+              />
+            )}
             <p className="text-sm">{user?.name}</p>
           </div>
           <div className="mt-4 mr-20 border-b pb-12">
@@ -83,12 +85,14 @@ const Lists = ({
                     </p>
                   </Link>
                   <div>
-                    <Image
-                      src={post.fileUrl!}
-                      alt=""
-                      width={120}
-                      height={120}
-                    />
+                    {post?.fileUrl && (
+                      <Image
+                        src={post.fileUrl!}
+                        alt=""
+                        width={120}
+                        height={120}
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -152,13 +156,15 @@ const Lists = ({
                   <div className="w-full my-10 flex flex-col gap-y-3 bg-gray-50 p-5">
                     <div className="flex gap-2">
                       <div>
-                        <Image
-                          src={user?.image!}
-                          alt=""
-                          width={25}
-                          height={25}
-                          className="rounded-full"
-                        />
+                        {user?.image && (
+                          <Image
+                            src={user?.image!}
+                            alt=""
+                            width={25}
+                            height={25}
+                            className="rounded-full"
+                          />
+                        )}
                       </div>
                       <p className="text-sm text-gray-600">{user?.name}</p>
                     </div>
@@ -191,7 +197,10 @@ const Lists = ({
                         </div>
                         <p className="">{save.user.name}</p>
                       </div>
-                      <Link href={`/story/${save.post.id}`} className="flex items-center justify-between mr-20">
+                      <Link
+                        href={`/story/${save.post.id}`}
+                        className="flex items-center justify-between mr-20"
+                      >
                         <div>
                           <p className="text-xl font-bold text-gray-800 ">
                             {save.post.title}

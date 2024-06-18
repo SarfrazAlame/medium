@@ -11,8 +11,9 @@ const LeftBar = async () => {
   const posts = await fetchAllPost();
   const userId = await getUserId();
   const users = await fetchAllUser();
+
   // @ts-ignore
-  const AllPostsExceptUserId = posts.filter(
+  const AllPostsExceptUserId = posts?.filter(
     (post: PostWithAll) => post.user.id !== userId
   );
   const AllUsersExceptMe = users?.filter((user: User) => user.id !== userId);
@@ -63,7 +64,7 @@ const LeftBar = async () => {
                 </div>
                 <p>{user.name}</p>
               </Link>
-              <LeftFollow user={user}/>
+              <LeftFollow user={user} />
             </div>
           </div>
         ))}
