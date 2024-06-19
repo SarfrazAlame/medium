@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { v4 as uuidv4 } from "uuid";
 import {
   fetchFollower,
   fetchFollowerByIdLength,
@@ -70,7 +71,7 @@ const LeftProfile = async ({
           <div>
             <p className="text-lg font-bold text-gray-800 mb-5">Following</p>
             {following?.map((user) => (
-              <div key={user?.followerId} className="flex justify-between w-56">
+              <div key={uuidv4()} className="flex justify-between w-56">
                 <div className="flex items-center my-2 gap-3">
                   <div>
                     {" "}
@@ -136,7 +137,7 @@ const LeftProfile = async ({
             <div>
               {followings.map((follow) => (
                 <div
-                  key={follow.followerId}
+                  key={uuidv4()}
                   className="flex justify-between w-72 items-center"
                 >
                   <div className="flex gap-3 my-2">

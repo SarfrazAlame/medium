@@ -72,7 +72,7 @@ const Lists = ({
           <div className="mt-4 mr-20 border-b pb-12">
             {/* @ts-ignore */}
             {user?.posts?.map((post: Post) => (
-              <div>
+              <div key={post.id}>
                 <div className="flex w-full justify-between">
                   <Link href={`/story/${post.id}`}>
                     <p className="text-xl font-bold text-gray-700">
@@ -180,7 +180,7 @@ const Lists = ({
                     Reading List
                   </p>
                   {user?.saved.map((save) => (
-                    <div className="flex flex-col gap-y-3 mb-10 border-b pb-4">
+                    <div key={save.user.id} className="flex flex-col gap-y-3 mb-10 border-b pb-4">
                       <div className="flex gap-2 items-center">
                         <div>
                           {save.post.user.image && (
