@@ -1,9 +1,9 @@
 import { unstable_noStore as noStore, revalidatePath } from "next/cache";
 import { getUserId } from "./getUserId"
 import prisma from "./prisma"
-import { tree } from "next/dist/build/templates/app-page";
 
 export const fetchAllPost = async () => {
+    noStore()
     try {
         const PostData = await prisma?.post.findMany({
             include: {
@@ -43,7 +43,7 @@ export const fetchAllPost = async () => {
             }
         }
         )
-        return PostData
+        return JSON.parse(JSON.stringify(PostData))
     } catch (error) {
         console.log(error)
         return {

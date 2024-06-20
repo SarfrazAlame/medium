@@ -15,6 +15,8 @@ const Posts = async ({ post }: { post: PostWithAll }) => {
   const stories = post.story?.slice(0, 70);
   const response = await fetchResponseByPostId(post.id);
 
+  console.log(post);
+
   return (
     <div className="flex gap-x-8 pb-5 justify-between border-b my-3">
       <div
