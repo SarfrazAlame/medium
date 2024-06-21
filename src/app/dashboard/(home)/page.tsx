@@ -8,7 +8,6 @@ const page = async () => {
     <>
       {PostData ? (
         <div className="flex flex-col gap-y-6 pr-10">
-          {/* @ts-ignore */}
           {PostData?.map((post: PostWithAll) => (
             <Posts key={post.id} post={post} />
           ))}

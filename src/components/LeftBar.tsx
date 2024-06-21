@@ -12,7 +12,6 @@ const LeftBar = async () => {
   const userId = await getUserId();
   const users = await fetchAllUser();
 
-  // @ts-ignore
   const AllPostsExceptUserId = posts?.filter(
     (post: PostWithAll) => post.user.id !== userId
   );

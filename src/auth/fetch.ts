@@ -9,11 +9,7 @@ export const fetchAllPost = async () => {
             include: {
                 claps: {
                     include: {
-                        user: {
-                            select: {
-                                name: true,
-                            }
-                        }
+                        user: true
                     }
                 },
                 response: {
@@ -29,14 +25,7 @@ export const fetchAllPost = async () => {
                         user: true
                     }
                 },
-                user: {
-                    select: {
-                        id: true,
-                        name: true,
-                        image: true,
-                        email: true
-                    }
-                }
+                user: true
             },
             orderBy: {
                 createdAt: "desc"

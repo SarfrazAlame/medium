@@ -1,4 +1,4 @@
-import { Response } from "@prisma/client";
+import { Prisma, Response } from "@prisma/client";
 import ClapsResponse from "./ClapsResponse";
 import { PostWithAll } from "@/auth/types";
 
@@ -27,13 +27,13 @@ const LowerSection = ({
 }) => {
   return (
     <>
-        <ClapsResponse
-          post={post}
-          user={user}
-          follower={follower}
-          savedpost={savedpost}
-          response={response}
-        />
+      <ClapsResponse
+        post={post}
+        user={user}
+        follower={follower}
+        savedpost={savedpost}
+        response={response}
+      />
     </>
   );
 };
