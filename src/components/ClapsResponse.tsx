@@ -50,7 +50,8 @@ const ClapsResponse = ({
         <p className="text-gray-600 text-sm">{post.claps.length}</p>
 
         <div className="flex items-center gap-1">
-          {/* <Comment post={post} user={user} response={response} /> */}
+          {/* @ts-ignore */}
+          <Comment post={post} user={user} response={response} />
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 import React from "react";
 import Lists from "./Lists";
 import { fetchUserByUserId } from "@/auth/fetch";
-// import { UserProps } from "@/app/dashboard/[id]/page";
+import { UserProps } from "@/app/dashboard/[id]/page";
 import { getUserId } from "@/auth/getUserId";
 import { Post, User } from "@prisma/client";
 

@@ -36,7 +36,8 @@ const ComLikeSave = ({
         <p className="text-gray-600 text-sm">{post.claps.length}</p>
 
         <div className="flex items-center gap-1">
-          {/* <Comment post={post} user={post.user} response={post.response} /> */}
+          {/* @ts-ignore */}
+          <Comment post={post} user={post.user} response={post.response} />
         </div>
         <SavedPostCom savedpost={savedPost} post={post} follower={follower} />
       </div>
