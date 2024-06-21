@@ -71,9 +71,10 @@ const page = async ({ params: { id } }: { params: { id: string } }) => {
       </div>
 
       <div className="border-b border-t py-3">
-        {/* @ts-ignore */}
         <ShowIcons
+          // @ts-ignore
           post={post}
+          // @ts-ignore
           response={response}
           user={user}
           follower={follower}
