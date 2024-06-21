@@ -16,14 +16,14 @@ const LoginWith = ({ text, className }: { text: string; className: any }) => {
       <DialogTrigger>
         <button className={className}>{text}</button>
       </DialogTrigger>
-      <DialogContent className="w-1/2 h-1/3  p-10 justify-center">
+      <DialogContent className="md:w-1/2 h-1/3 w-full  p-10 justify-center">
         <DialogHeader className="text-2xl mx-auto font-sans ">
           Join Medium.
         </DialogHeader>
         <DialogHeader>
           <button
             onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-            className="border px-10 py-3 rounded-full border-black hover:bg-gray-100"
+            className="border w-full px-10 py-3 rounded-full border-black hover:bg-gray-100"
           >
             Sign up with Google
           </button>

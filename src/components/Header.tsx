@@ -9,13 +9,13 @@ import Profile from "./Profile";
 
 const Header = async () => {
   const session = await getAuthOptions();
-  const user = session?.user
+  const user = session?.user;
   return (
     <header>
       <div className="h-16 flex justify-between items-center px-10 border">
         <div className="flex gap-6 items-center outline-none relative">
           <Link href={"/dashboard"}>
-            <h1 className="text-3xl font-bold font-serif text-gray-700">
+            <h1 className="text-3xl font-bold font-serif  text-gray-700">
               Medium
             </h1>
           </Link>

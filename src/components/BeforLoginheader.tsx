@@ -9,7 +9,9 @@ const BeforLoginheader = () => {
         <div>
           <Image src={"/logoipsum-274.svg"} height={45} width={45} alt="" />
         </div>
-        <p className="mx-2 text-3xl font-bold font-serif">Medium</p>
+        <p className="mx-2 text-3xl font-bold font-serif hidden sm:block">
+          Medium
+        </p>
       </div>
       <div className="flex items-center gap-6">
         <LoginWith text="Write" className="text-sm" />
