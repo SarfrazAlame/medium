@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import LeftProfile from "@/components/LeftProfile";
+// import LeftProfile from "@/components/LeftProfile";
 
 export default function ProfileLayout({
   children,
