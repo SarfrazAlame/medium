@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import {
   Sheet,
@@ -9,7 +9,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { FaComment } from "react-icons/fa";
-import { PostWithAll } from "@/auth/types";
+import { PostWithAll, ResponseWithAll } from "@/auth/types";
 import { Form, FormField, FormItem } from "./ui/form";
 import { useForm } from "react-hook-form";
 import { CreateResponse } from "@/auth/schema";
@@ -40,7 +40,7 @@ const Comment = ({
 }: {
   post: PostWithAll;
   user: User;
-  response: Response;
+  response: ResponseWithAll;
 }) => {
   const form = useForm<z.infer<typeof CreateResponse>>({
     resolver: zodResolver(CreateResponse),
