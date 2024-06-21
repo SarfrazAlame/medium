@@ -1,6 +1,6 @@
 import { fetchResponseByPostId } from "@/auth/fetch";
 import React from "react";
-import ShowIcons from "./ShowIcons";
+// import ShowIcons from "./ShowIcons";
 import { PostWithAll } from "@/auth/types";
 import { User } from "@prisma/client";
 
